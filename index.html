@@ -8,12 +8,12 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center">
 
-  <!-- Top Notification Bar -->
+  <!-- Top Announcement Bar -->
   <header class="w-full bg-blue-600 text-white text-xs font-semibold py-2 text-center tracking-wide shadow-sm">
     ⚡ 100% FREE ONLINE UTILITY • NO LOGIN REQUIRED • UNLIMITED USAGE
   </header>
 
-  <!-- Top Banner Ad Slot -->
+  <!-- Top Banner Ad Unit Slot -->
   <div class="w-full max-w-xl my-3 px-4">
     <div id="top-ad-slot" class="w-full h-24 bg-slate-100 border border-dashed border-slate-300 rounded-xl flex items-center justify-center text-xs text-slate-400">
       Top Banner Ad Unit (728x90)
@@ -45,14 +45,36 @@
       </div>
 
       <!-- Upload Zone -->
-      <label for="imageInput" class="border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 transition bg-slate-50">
-        <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-        </svg>
-        <span id="uploadLabel" class="text-xs font-semibold text-slate-700 text-center">Tap to Choose or Drop Image</span>
-        <span class="text-[11px] text-slate-400 mt-1">Supports JPG, JPEG, PNG</span>
-        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/jpg" class="hidden" />
-      </label>
+      <div class="border-2 border-dashed border-slate-200 rounded-2xl p-5 flex flex-col items-center justify-center hover:border-blue-400 transition bg-slate-50 relative">
+        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/jpg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+        
+        <!-- Default State -->
+        <div id="uploadDefault" class="flex flex-col items-center pointer-events-none">
+          <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+          </svg>
+          <span class="text-xs font-semibold text-slate-700">Tap to Choose or Drop Image</span>
+          <span class="text-[11px] text-slate-400 mt-1">Supports JPG, JPEG, PNG</span>
+        </div>
+
+        <!-- Selected State with Thumbnail Preview -->
+        <div id="uploadSelected" class="hidden flex-col items-center w-full pointer-events-none">
+          <img id="selectedThumbnail" class="h-28 max-w-full object-contain rounded-lg border border-slate-300 shadow-sm bg-white mb-2" alt="Selected Document" />
+          <span id="selectedFileName" class="text-xs font-bold text-slate-800 truncate max-w-xs"></span>
+          <span id="selectedFileSize" class="text-[11px] text-slate-500"></span>
+        </div>
+
+        <!-- Upload Progress Simulation Bar -->
+        <div id="uploadProgressContainer" class="hidden w-full mt-3">
+          <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+            <div id="uploadProgressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-150" style="width: 0%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+            <span>Loading file...</span>
+            <span id="uploadProgressText">0%</span>
+          </div>
+        </div>
+      </div>
 
       <!-- Target Size Indicator -->
       <div class="flex justify-between items-center mt-4 text-xs font-medium text-slate-600">
@@ -61,21 +83,9 @@
       </div>
 
       <!-- Action Button -->
-      <button id="processBtn" type="button" onclick="processImage()" disabled class="w-full mt-4 bg-blue-600 disabled:bg-slate-300 text-white py-3 rounded-xl font-bold text-sm shadow hover:bg-blue-700 transition">
-        Compress & Download
+      <button id="processBtn" type="button" onclick="startCompressionProcess()" disabled class="w-full mt-4 bg-blue-600 disabled:bg-slate-300 text-white py-3 rounded-xl font-bold text-sm shadow hover:bg-blue-700 transition">
+        Compress Image
       </button>
-
-      <!-- Preview Section -->
-      <div id="previewContainer" class="hidden mt-6 pt-5 border-t border-slate-100 flex flex-col items-center">
-        <span class="text-xs font-semibold text-slate-500 mb-2">Uncropped Compressed Result:</span>
-        <div class="w-full flex justify-center bg-slate-100 p-2 rounded-xl border border-slate-200">
-          <img id="previewImg" class="max-h-56 max-w-full w-auto h-auto rounded-lg shadow-sm object-contain bg-white" alt="Output Preview" />
-        </div>
-        <span id="resultMeta" class="text-xs font-bold text-emerald-600 my-3"></span>
-        <a id="downloadLink" download="exam_compressed.jpg" class="bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow hover:bg-emerald-700 transition">
-          Download File
-        </a>
-      </div>
 
     </div>
   </main>
@@ -87,8 +97,8 @@
       <ol class="list-decimal list-inside space-y-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
         <li>Select either the <b>Passport Photo (Max 50KB)</b> or <b>Signature (Max 20KB)</b> preset.</li>
         <li>Upload your file directly from your camera, gallery, or computer.</li>
-        <li>Tap <b>Compress & Download</b>. Your image is processed locally inside your browser memory.</li>
-        <li>The output file is strictly sized under the limit without cropping or losing clarity.</li>
+        <li>Tap <b>Compress Image</b>. The client-side engine adjusts resolution and byte density instantly.</li>
+        <li>Unlock your compressed file strictly below the specified portal upload ceiling.</li>
       </ol>
     </div>
 
@@ -129,7 +139,6 @@
       </p>
     </div>
 
-    <!-- Footer Links -->
     <footer class="text-center text-xs text-slate-400 pb-8 space-y-2">
       <div class="flex justify-center gap-4">
         <a href="#" class="hover:underline">Privacy Policy</a>
@@ -149,10 +158,40 @@
     </div>
   </div>
 
-  <!-- Native Canvas High-Fidelity Compression Engine -->
+  <!-- Monetization Pop-Up Modal (Countdown + Direct Link Trigger) -->
+  <div id="adModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 flex flex-col items-center animate-fade-in">
+      
+      <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+
+      <h3 class="text-base font-bold text-slate-900 mb-1">Compression Completed!</h3>
+      <p id="modalResultSize" class="text-xs font-semibold text-emerald-600 mb-3"></p>
+
+      <!-- Inside-Modal Ad Slot (300x250) -->
+      <div id="modal-ad-slot" class="w-full h-52 bg-slate-100 border border-dashed border-slate-300 rounded-xl flex items-center justify-center text-xs text-slate-400 my-2">
+        Advertisement Unit (300x250)
+      </div>
+
+      <!-- Countdown / Action Trigger Button -->
+      <button id="modalActionBtn" disabled onclick="handleDownloadWithAd()" class="w-full mt-4 bg-slate-300 text-slate-600 py-3 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+        <span>Please wait</span> <span id="countdownTimer" class="font-extrabold text-blue-600">5</span> <span>seconds...</span>
+      </button>
+
+      <span class="text-[10px] text-slate-400 mt-2 text-center">Your free download supports our serverless platform.</span>
+    </div>
+  </div>
+
+  <!-- Compression & Monetization Engine -->
   <script>
     let currentLimitKB = 50;
     let selectedFile = null;
+    let readyDownloadBlob = null;
+    let countdownInterval = null;
+
+    // REPLACE THIS with your Monetag Direct Link or Adsterra SmartLink URL
+    const MONETIZATION_DIRECT_LINK = "https://example.com/directlink";
 
     function setPreset(type) {
       const btnPhoto = document.getElementById('btn-photo');
@@ -172,15 +211,54 @@
       }
     }
 
+    // Step 1: Detect File Selection & Run Visual Progress Indicator
     document.getElementById('imageInput').addEventListener('change', (e) => {
       if (e.target.files && e.target.files[0]) {
         selectedFile = e.target.files[0];
-        document.getElementById('uploadLabel').innerText = selectedFile.name;
-        document.getElementById('processBtn').disabled = false;
+
+        const uploadDefault = document.getElementById('uploadDefault');
+        const uploadSelected = document.getElementById('uploadSelected');
+        const uploadProgressContainer = document.getElementById('uploadProgressContainer');
+        const uploadProgressBar = document.getElementById('uploadProgressBar');
+        const uploadProgressText = document.getElementById('uploadProgressText');
+        const selectedThumbnail = document.getElementById('selectedThumbnail');
+        const selectedFileName = document.getElementById('selectedFileName');
+        const selectedFileSize = document.getElementById('selectedFileSize');
+        const processBtn = document.getElementById('processBtn');
+
+        // Hide idle state, show progress bar
+        uploadDefault.classList.add('hidden');
+        uploadSelected.classList.add('hidden');
+        uploadProgressContainer.classList.remove('hidden');
+        processBtn.disabled = true;
+
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 20;
+          uploadProgressBar.style.width = progress + '%';
+          uploadProgressText.innerText = progress + '%';
+
+          if (progress >= 100) {
+            clearInterval(interval);
+            
+            // Read file and render visible preview thumbnail
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              selectedThumbnail.src = event.target.result;
+              selectedFileName.innerText = selectedFile.name;
+              selectedFileSize.innerText = `Original Size: ${(selectedFile.size / 1024).toFixed(1)} KB`;
+
+              uploadProgressContainer.classList.add('hidden');
+              uploadSelected.classList.remove('hidden');
+              processBtn.disabled = false;
+            };
+            reader.readAsDataURL(selectedFile);
+          }
+        }, 60);
       }
     });
 
-    // Pure Client-side High-Fidelity Compression without Cropping
+    // Step 2: High-Fidelity Compression Engine (Zero Cropping, Strict Byte Budget)
     function compressNative(file, maxKB) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -189,10 +267,8 @@
           const img = new Image();
           img.src = event.target.result;
           img.onload = () => {
-            // Strict target ceiling (92% of target) to guarantee safety margin
             const targetBytes = (maxKB * 0.92) * 1024;
             
-            // Maintain exact original aspect ratio
             let width = img.naturalWidth;
             let height = img.naturalHeight;
             const maxDimension = maxKB <= 20 ? 800 : 1200;
@@ -212,12 +288,11 @@
             canvas.height = height;
             const ctx = canvas.getContext('2d');
 
-            // White background fill prevents transparent PNG black box rendering
+            // White background fill prevents transparent PNG black distortion
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, width, height);
             ctx.drawImage(img, 0, 0, width, height);
 
-            // Iterative binary search for maximum image quality under strict byte limit
             let minQuality = 0.05;
             let maxQuality = 0.95;
             let bestBlob = null;
@@ -226,22 +301,19 @@
             function iterate() {
               const currentQuality = (minQuality + maxQuality) / 2;
               canvas.toBlob((blob) => {
-                if (!blob) {
-                  return reject(new Error('Canvas export failed'));
-                }
+                if (!blob) return reject(new Error('Canvas export failed'));
 
                 passes++;
                 if (blob.size <= targetBytes) {
                   bestBlob = blob;
-                  minQuality = currentQuality; // Try a higher quality pass
+                  minQuality = currentQuality;
                 } else {
-                  maxQuality = currentQuality; // Exceeded budget, reduce quality
+                  maxQuality = currentQuality;
                 }
 
                 if (passes < 8 && (maxQuality - minQuality > 0.04)) {
                   iterate();
                 } else {
-                  // Fallback: If still above budget, scale dimensions down proportionally without cropping
                   if (!bestBlob || bestBlob.size > (maxKB * 1024)) {
                     const fallbackCanvas = document.createElement('canvas');
                     fallbackCanvas.width = Math.round(width * 0.75);
@@ -268,37 +340,77 @@
       });
     }
 
-    async function processImage() {
+    // Step 3: Trigger Compression and Open the Monetization Dialog
+    async function startCompressionProcess() {
       if (!selectedFile) return;
       const processBtn = document.getElementById('processBtn');
       processBtn.disabled = true;
       processBtn.innerText = 'Compressing...';
 
       try {
-        const resultBlob = await compressNative(selectedFile, currentLimitKB);
+        readyDownloadBlob = await compressNative(selectedFile, currentLimitKB);
+        const finalKB = (readyDownloadBlob.size / 1024).toFixed(1);
 
-        const previewContainer = document.getElementById('previewContainer');
-        const previewImg = document.getElementById('previewImg');
-        const resultMeta = document.getElementById('resultMeta');
-        const downloadLink = document.getElementById('downloadLink');
-
-        if (previewImg.src) URL.revokeObjectURL(previewImg.src);
-        const outputUrl = URL.createObjectURL(resultBlob);
-
-        previewImg.src = outputUrl;
-        const actualKB = (resultBlob.size / 1024).toFixed(1);
-        resultMeta.innerText = `Final Size: ${actualKB} KB (Limit: ≤ ${currentLimitKB} KB)`;
-        downloadLink.href = outputUrl;
-        downloadLink.download = `exam_${currentLimitKB}kb_${selectedFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
-
-        previewContainer.classList.remove('hidden');
+        document.getElementById('modalResultSize').innerText = `Target: ≤ ${currentLimitKB} KB | Final: ${finalKB} KB`;
+        openAdModal();
       } catch (err) {
-        alert('Could not compress image. Please ensure the file is a standard JPG or PNG.');
+        alert('Could not compress image. Please ensure it is a valid JPG/PNG file.');
         console.error(err);
       } finally {
         processBtn.disabled = false;
-        processBtn.innerText = 'Compress & Download';
+        processBtn.innerText = 'Compress Image';
       }
+    }
+
+    // Step 4: Ad Modal Countdown Logic
+    function openAdModal() {
+      const modal = document.getElementById('adModal');
+      const actionBtn = document.getElementById('modalActionBtn');
+      const countdownTimer = document.getElementById('countdownTimer');
+
+      modal.classList.remove('hidden');
+      actionBtn.disabled = true;
+      actionBtn.className = 'w-full mt-4 bg-slate-300 text-slate-600 py-3 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-not-allowed';
+
+      let timeLeft = 5;
+      countdownTimer.innerText = timeLeft;
+
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        timeLeft--;
+        countdownTimer.innerText = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          actionBtn.disabled = false;
+          actionBtn.innerHTML = '⬇️ Download Compressed Document';
+          actionBtn.className = 'w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs sm:text-sm shadow-lg transition flex items-center justify-center gap-2 cursor-pointer';
+        }
+      }, 1000);
+    }
+
+    // Step 5: User Clicked Download — Open Ad in New Tab & Download File
+    function handleDownloadWithAd() {
+      if (!readyDownloadBlob) return;
+
+      // 1. Trigger the monetization link in a new tab on actual user tap
+      if (MONETIZATION_DIRECT_LINK && MONETIZATION_DIRECT_LINK !== "https://example.com/directlink") {
+        window.open(MONETIZATION_DIRECT_LINK, '_blank');
+      }
+
+      // 2. Initiate automatic document download
+      const downloadUrl = URL.createObjectURL(readyDownloadBlob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = `exam_${currentLimitKB}kb_${selectedFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(downloadUrl);
+
+      // 3. Close the modal
+      document.getElementById('adModal').classList.add('hidden');
     }
   </script>
 </body>
