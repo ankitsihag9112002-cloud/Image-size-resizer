@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Govt Exam Photo & Signature Compressor - Fast & 100% Free</title>
+  <title>Free Online Image Size Reducer & Signature Compressor - No Login</title>
+  <meta name="description" content="Free online image size reducer and signature compressor in KB for SSC, UPSC, and Govt exams. No login, no sign-up required. Fast & secure client-side tool.">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- In-browser client-side compression library -->
@@ -11,11 +12,18 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col pb-28">
 
+  <!-- Top Announcement Bar -->
+  <div class="bg-blue-600 text-white text-[11px] font-semibold py-1.5 px-4 text-center tracking-wide">
+    ⚡ 100% FREE ONLINE UTILITY • NO LOGIN REQUIRED • UNLIMITED USAGE
+  </div>
+
   <!-- Header -->
-  <header class="bg-white border-b py-3 px-6 shadow-sm">
+  <header class="bg-white border-b py-3 px-4 shadow-sm">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <span class="text-xl font-bold text-blue-600">ExamDocs Resizer</span>
-      <span class="text-xs text-green-600 font-semibold bg-green-50 px-2.5 py-1 rounded-full border border-green-200">100% Secure & In-Browser</span>
+      <span class="text-lg font-black tracking-tight text-blue-600">ExamDocs<span class="text-slate-900">Resizer</span></span>
+      <span class="text-[11px] text-emerald-700 font-bold bg-emerald-100/70 px-2.5 py-1 rounded-full border border-emerald-300">
+        🛡️ Zero Server Uploads
+      </span>
     </div>
   </header>
 
@@ -31,26 +39,209 @@
   </div>
 
   <!-- Main Compression Tool Container -->
-  <main class="max-w-xl w-full mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mt-2 px-6">
-    <div class="text-center mb-5">
-      <h1 class="text-xl font-bold text-slate-900">Resize Photo & Signature in Seconds</h1>
-      <p class="text-xs text-slate-500 mt-1">Preset limits for SSC, UPSC, IBPS, Railways & State Exams</p>
+  <main class="max-w-xl w-full mx-auto bg-white p-5 sm:p-7 rounded-2xl shadow-sm border border-slate-200 mt-1 px-4 sm:px-6">
+    
+    <!-- BIG HIGH-VOLUME TITLE & BADGES -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold uppercase tracking-wider mb-2 border border-blue-200">
+        <span>Instant Photo & Signature Resizer</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+        Image Size Reducer & Compressor
+      </h1>
+      <p class="text-xs sm:text-sm font-medium text-slate-500 mt-2">
+        Reduce Passport Photo & Signature size to 20KB & 50KB for Govt Exam forms.
+      </p>
+      
+      <!-- Key Feature Highlights -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-[11px] font-semibold text-slate-600">
+        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">✓ 100% Free</span>
+        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">✓ No Login / Sign-up</span>
+        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">✓ SSC / UPSC / RRB Ready</span>
+      </div>
     </div>
 
     <!-- Mode Selector: Photo vs Signature -->
-    <div class="flex gap-2 p-1 bg-slate-100 rounded-xl mb-5">
-      <button id="photoTab" type="button" class="flex-1 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition-all shadow-sm">
-        1. Passport Photo (Max 50KB)
+    <div class="flex gap-2 p-1.5 bg-slate-100 rounded-xl mb-5">
+      <button id="photoTab" type="button" class="flex-1 py-2.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition-all shadow-sm">
+        📷 1. Photo (Max 50KB)
       </button>
-      <button id="signTab" type="button" class="flex-1 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-slate-900 transition-all">
-        2. Signature (Max 20KB)
+      <button id="signTab" type="button" class="flex-1 py-2.5 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+        ✍️ 2. Signature (Max 20KB)
       </button>
     </div>
 
     <!-- Upload Drop Zone -->
     <label for="upload" class="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-6 cursor-pointer hover:border-blue-500 transition-colors bg-slate-50/50 hover:bg-blue-50/30">
-      <svg class="w-8 h-8 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-9 h-9 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
       </svg>
-      <span id="uploadLabel" class="text-xs font-medium text-slate-700">Choose or drop Passport Photo here</span>
-      <input id="upload" type="file
+      <span id="uploadLabel" class="text-xs sm:text-sm font-semibold text-slate-700 text-center">Tap to Choose or Drop Passport Photo</span>
+      <span class="text-[11px] text-slate-400 mt-1">Supports JPG, JPEG, PNG</span>
+      <input id="upload" type="file" accept="image/*" class="hidden" />
+    </label>
+
+    <!-- Selected Target Size Indicator -->
+    <div class="mt-4 flex justify-between items-center text-xs font-semibold text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200">
+      <span>Target Strict Size Limit:</span>
+      <span id="targetSizeText" class="text-blue-600 font-extrabold text-sm">50 KB (0.05 MB)</span>
+    </div>
+
+    <!-- Action Button -->
+    <button id="compressBtn" type="button" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-sm transition-all hidden shadow-md hover:shadow-lg">
+      Compress & Optimize Image Now
+    </button>
+
+    <!-- Result / Download Card -->
+    <div id="result" class="mt-5 p-4 bg-emerald-50 border border-emerald-200 rounded-xl hidden">
+      <div class="flex items-center justify-between text-xs font-medium text-slate-700 mb-3">
+        <span>Original: <b id="origSize" class="text-slate-900 font-bold">0 KB</b></span>
+        <span>Compressed: <b id="newSize" class="text-emerald-700 font-black text-sm">0 KB</b></span>
+      </div>
+      <a id="downloadLink" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-sm transition-colors shadow">
+        Download Optimized File
+      </a>
+    </div>
+  </main>
+
+  <!-- SLOT 2: 5-SECOND COUNTDOWN IN-PAGE MODAL (POP-UP AD) -->
+  <div id="adModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 text-center shadow-2xl border border-slate-100">
+      <h3 class="text-sm font-bold text-slate-800">Optimizing Document Resolution...</h3>
+      <p class="text-xs text-slate-500 mt-1 mb-4">Please wait <span id="modalTimer" class="font-bold text-blue-600 text-sm">5</span> seconds</p>
+
+      <!-- MODAL AD CONTAINER (300x250 Medium Rectangle) -->
+      <div class="w-full min-h-[250px] bg-slate-100 rounded-lg border border-dashed border-slate-300 flex items-center justify-center text-xs text-slate-400 mb-4 overflow-hidden">
+        <!-- ============================================== -->
+        <!-- PASTE YOUR ADSTERRA/MONETAG 300x250 CODE BELOW -->
+        <!-- ============================================== -->
+        <span>300x250 Modal Display Ad</span>
+        <!-- ============================================== -->
+      </div>
+
+      <!-- Action Button inside Modal (Unlocks at 0s) -->
+      <button id="modalActionBtn" disabled type="button" class="w-full py-2.5 rounded-xl text-xs font-semibold bg-slate-200 text-slate-400 cursor-not-allowed transition-colors">
+        Ready in 5s...
+      </button>
+    </div>
+  </div>
+
+  <!-- SLOT 3: BOTTOM PERMANENT STICKY ANCHOR BANNER -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-slate-200 py-1.5 flex justify-center items-center shadow-lg">
+    <div class="w-full max-w-xl flex items-center justify-center min-h-[50px] bg-slate-100 text-xs text-slate-400 border border-dashed border-slate-300 rounded">
+      <!-- ============================================== -->
+      <!-- PASTE YOUR ADSTERRA/MONETAG STICKY BANNER CODE -->
+      <!-- ============================================== -->
+      <span>Bottom Sticky Anchor Ad Unit</span>
+      <!-- ============================================== -->
+    </div>
+  </div>
+
+  <!-- Functional JavaScript Logic -->
+  <script>
+    const upload = document.getElementById('upload');
+    const uploadLabel = document.getElementById('uploadLabel');
+    const compressBtn = document.getElementById('compressBtn');
+    const targetSizeText = document.getElementById('targetSizeText');
+    const photoTab = document.getElementById('photoTab');
+    const signTab = document.getElementById('signTab');
+    const result = document.getElementById('result');
+    const origSize = document.getElementById('origSize');
+    const newSize = document.getElementById('newSize');
+    const downloadLink = document.getElementById('downloadLink');
+
+    const adModal = document.getElementById('adModal');
+    const modalTimer = document.getElementById('modalTimer');
+    const modalActionBtn = document.getElementById('modalActionBtn');
+
+    let currentFile = null;
+    let targetLimitMB = 0.05; // 50KB default for Passport Photo
+
+    // Mode Toggle: Photo (50KB) vs Signature (20KB)
+    photoTab.addEventListener('click', () => {
+      targetLimitMB = 0.05;
+      targetSizeText.textContent = "50 KB (0.05 MB)";
+      uploadLabel.textContent = "Tap to Choose or Drop Passport Photo";
+      photoTab.className = "flex-1 py-2.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition-all shadow-sm";
+      signTab.className = "flex-1 py-2.5 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+      result.classList.add('hidden');
+    });
+
+    signTab.addEventListener('click', () => {
+      targetLimitMB = 0.02; // 20KB for Signature
+      targetSizeText.textContent = "20 KB (0.02 MB)";
+      uploadLabel.textContent = "Tap to Choose or Drop Signature Image";
+      signTab.className = "flex-1 py-2.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition-all shadow-sm";
+      photoTab.className = "flex-1 py-2.5 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+      result.classList.add('hidden');
+    });
+
+    // File Selection Handler
+    upload.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        currentFile = e.target.files[0];
+        origSize.textContent = (currentFile.size / 1024).toFixed(1) + ' KB';
+        compressBtn.classList.remove('hidden');
+        result.classList.add('hidden');
+      }
+    });
+
+    // Client-Side Compression + 5-Second Modal Ad Logic
+    compressBtn.addEventListener('click', async () => {
+      if (!currentFile) return;
+
+      compressBtn.disabled = true;
+      adModal.classList.remove('hidden');
+      modalActionBtn.disabled = true;
+      modalActionBtn.className = "w-full py-2.5 rounded-xl text-xs font-semibold bg-slate-200 text-slate-400 cursor-not-allowed";
+
+      // 1. In-browser compression running in background worker
+      let compressedBlob = null;
+      try {
+        const options = {
+          maxSizeMB: targetLimitMB,
+          maxWidthOrHeight: targetLimitMB === 0.02 ? 800 : 1200,
+          useWebWorker: true
+        };
+        compressedBlob = await imageCompression(currentFile, options);
+      } catch (err) {
+        alert("Compression error: " + err.message);
+        adModal.classList.add('hidden');
+        compressBtn.disabled = false;
+        return;
+      }
+
+      // 2. 5-second countdown timer for the modal ad unit
+      let secondsRemaining = 5;
+      modalTimer.textContent = secondsRemaining;
+      modalActionBtn.textContent = `Ready in ${secondsRemaining}s...`;
+
+      const countdown = setInterval(() => {
+        secondsRemaining--;
+        if (secondsRemaining > 0) {
+          modalTimer.textContent = secondsRemaining;
+          modalActionBtn.textContent = `Ready in ${secondsRemaining}s...`;
+        } else {
+          clearInterval(countdown);
+          modalTimer.textContent = "0";
+          modalActionBtn.disabled = false;
+          modalActionBtn.textContent = "Done! Download File";
+          modalActionBtn.className = "w-full py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer shadow-sm";
+
+          // Download unlock trigger
+          modalActionBtn.onclick = () => {
+            newSize.textContent = (compressedBlob.size / 1024).toFixed(1) + ' KB';
+            const downloadUrl = URL.createObjectURL(compressedBlob);
+            downloadLink.href = downloadUrl;
+            downloadLink.download = `compressed-${currentFile.name}`;
+
+            adModal.classList.add('hidden');
+            result.classList.remove('hidden');
+            compressBtn.disabled = false;
+          };
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
