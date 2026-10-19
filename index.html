@@ -192,8 +192,8 @@
     let readyDownloadBlob = null;
     let countdownInterval = null;
 
-    // REPLACE THIS with your Monetag Direct Link once generated
-    const MONETIZATION_DIRECT_LINK = "https://example.com/directlink";
+    // ACTIVE MONETAG DIRECT LINK
+    const MONETIZATION_DIRECT_LINK = "https://uplcm.com/4/12069878";
 
     function setPreset(type) {
       const btnPhoto = document.getElementById('btn-photo');
@@ -393,10 +393,12 @@
     function handleDownloadWithAd() {
       if (!readyDownloadBlob) return;
 
-      if (MONETIZATION_DIRECT_LINK && MONETIZATION_DIRECT_LINK !== "https://example.com/directlink") {
+      // Opens Monetag Direct Link in a new tab
+      if (MONETIZATION_DIRECT_LINK) {
         window.open(MONETIZATION_DIRECT_LINK, '_blank');
       }
 
+      // Triggers download of the compressed file
       const downloadUrl = URL.createObjectURL(readyDownloadBlob);
       const a = document.createElement('a');
       a.href = downloadUrl;
@@ -406,6 +408,7 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(downloadUrl);
 
+      // Dismiss modal
       document.getElementById('adModal').classList.add('hidden');
     }
   </script>
