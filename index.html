@@ -3,415 +3,465 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="monetag" content="67e242e0d213fbe3226b669df15bf4b3">
   
-  <!-- Monetag Vignette / In-Page Script -->
-  <script>(function(s){s.dataset.zone='12069902',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  <!-- SEO Meta Tags -->
+  <title>Online Photo & Signature Resizer for Govt Exams (SSC, UPSC, IBPS, State PSC)</title>
+  <meta name="description" content="Free online tool to resize and compress photos under 50KB and signatures under 20KB for SSC CGL, UPSC, IBPS, Police, and government exams. Secure, fast, and processed right inside your browser." />
+  <meta name="keywords" content="photo resizer 50kb, signature compressor 20kb, ssc photo resize, upsc signature resizer, ibps document resizer, exam photo compressor" />
+  <meta name="author" content="ExamDocsResizer" />
 
-  <title>ExamDocsResizer - Free Photo & Signature Compressor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center">
+  <!-- Monetag Ad Tag -->
+  <meta name="monetag" content="YOUR_MONETAG_TAG_HERE" />
 
-  <!-- Top Announcement Bar -->
-  <header class="w-full bg-blue-600 text-white text-xs font-semibold py-2 text-center tracking-wide shadow-sm">
-    ⚡ 100% FREE ONLINE UTILITY • NO LOGIN REQUIRED • UNLIMITED USAGE
-  </header>
+  <!-- Favicon Links for Browser Tabs & Google Search -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
-  <!-- Top Banner Ad Unit Slot -->
-  <div class="w-full max-w-xl my-3 px-4">
-    <div id="top-ad-slot" class="w-full min-h-[90px] flex items-center justify-center overflow-hidden">
-      <!-- Vignette and In-Page triggers display dynamically -->
-    </div>
-  </div>
-
-  <!-- Main Compression Tool -->
-  <main class="max-w-xl w-full px-4">
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
-      
-      <!-- App Header -->
-      <div class="flex items-center justify-between mb-3">
-        <h1 class="text-xl font-black text-slate-900 tracking-tight">ExamDocs<span class="text-blue-600">Resizer</span></h1>
-        <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-200">🛡️ Zero Server Uploads</span>
-      </div>
-
-      <p class="text-xs text-slate-500 mb-5 leading-relaxed">
-        Strictly compress passport photographs & signatures below 20KB & 50KB for government exam portals without cropping or losing clarity.
-      </p>
-
-      <!-- Presets Selector -->
-      <div class="grid grid-cols-2 gap-3 mb-5">
-        <button id="btn-photo" type="button" onclick="setPreset('photo')" class="py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition">
-          📷 1. Photo (Max 50KB)
-        </button>
-        <button id="btn-signature" type="button" onclick="setPreset('signature')" class="py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition">
-          ✍️ 2. Signature (Max 20KB)
-        </button>
-      </div>
-
-      <!-- Upload Zone -->
-      <div class="border-2 border-dashed border-slate-200 rounded-2xl p-5 flex flex-col items-center justify-center hover:border-blue-400 transition bg-slate-50 relative">
-        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/jpg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-        
-        <!-- Default State -->
-        <div id="uploadDefault" class="flex flex-col items-center pointer-events-none">
-          <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-          </svg>
-          <span class="text-xs font-semibold text-slate-700">Tap to Choose or Drop Image</span>
-          <span class="text-[11px] text-slate-400 mt-1">Supports JPG, JPEG, PNG</span>
-        </div>
-
-        <!-- Selected State with Thumbnail Preview -->
-        <div id="uploadSelected" class="hidden flex-col items-center w-full pointer-events-none">
-          <img id="selectedThumbnail" class="h-28 max-w-full object-contain rounded-lg border border-slate-300 shadow-sm bg-white mb-2" alt="Selected Document" />
-          <span id="selectedFileName" class="text-xs font-bold text-slate-800 truncate max-w-xs"></span>
-          <span id="selectedFileSize" class="text-[11px] text-slate-500"></span>
-        </div>
-
-        <!-- Upload Progress Simulation Bar -->
-        <div id="uploadProgressContainer" class="hidden w-full mt-3">
-          <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-            <div id="uploadProgressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-150" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-[10px] text-slate-500 mt-1">
-            <span>Loading file...</span>
-            <span id="uploadProgressText">0%</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Target Size Indicator -->
-      <div class="flex justify-between items-center mt-4 text-xs font-medium text-slate-600">
-        <span>Target Strict Size Limit:</span>
-        <span id="targetLabel" class="font-bold text-blue-600">Strictly &lt; 50 KB</span>
-      </div>
-
-      <!-- Action Button -->
-      <button id="processBtn" type="button" onclick="startCompressionProcess()" disabled class="w-full mt-4 bg-blue-600 disabled:bg-slate-300 text-white py-3 rounded-xl font-bold text-sm shadow hover:bg-blue-700 transition">
-        Compress Image
-      </button>
-
-    </div>
-  </main>
-
-  <!-- Informational, SEO & Policy Guidelines -->
-  <section class="max-w-xl w-full mx-auto mt-8 px-4 text-slate-700">
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-6">
-      <h2 class="text-base font-bold text-slate-900 mb-3">How to Resize Photos & Signatures Online</h2>
-      <ol class="list-decimal list-inside space-y-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
-        <li>Select either the <b>Passport Photo (Max 50KB)</b> or <b>Signature (Max 20KB)</b> preset.</li>
-        <li>Upload your file directly from your camera, gallery, or computer.</li>
-        <li>Tap <b>Compress Image</b>. The client-side engine adjusts resolution and byte density instantly.</li>
-        <li>Unlock your compressed file strictly below the specified portal upload ceiling.</li>
-      </ol>
-    </div>
-
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-6">
-      <h2 class="text-base font-bold text-slate-900 mb-3">Standard Government Exam Upload Criteria</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs border-collapse">
-          <thead>
-            <tr class="border-b border-slate-200 text-slate-900">
-              <th class="py-2 font-semibold">Document</th>
-              <th class="py-2 font-semibold">Accepted Size</th>
-              <th class="py-2 font-semibold">Aspect Ratio</th>
-              <th class="py-2 font-semibold">Format</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100 text-slate-600">
-            <tr>
-              <td class="py-2 font-medium">Passport Photo</td>
-              <td class="py-2">20 KB – 50 KB</td>
-              <td class="py-2">3.5 cm × 4.5 cm</td>
-              <td class="py-2">JPG / JPEG</td>
-            </tr>
-            <tr>
-              <td class="py-2 font-medium">Signature</td>
-              <td class="py-2">10 KB – 20 KB</td>
-              <td class="py-2">Horizontal Box</td>
-              <td class="py-2">JPG / JPEG</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-8 text-xs text-slate-600 space-y-2">
-      <h2 class="text-base font-bold text-slate-900 mb-1">Your Privacy is Protected</h2>
-      <p>
-        All image compression processes locally on your client device using HTML5 Canvas. Your documents and sensitive personal photographs are never sent over the web or saved on remote servers.
-      </p>
-    </div>
-
-    <!-- Footer Links -->
-    <footer class="text-center text-xs text-slate-400 pb-8 space-y-2">
-      <div class="flex justify-center gap-4">
-        <a href="#" class="hover:underline">Privacy Policy</a>
-        <span>•</span>
-        <a href="#" class="hover:underline">Terms of Service</a>
-        <span>•</span>
-        <a href="#" class="hover:underline">Contact</a>
-      </div>
-      <p>© 2026 ExamDocsResizer. All rights reserved.</p>
-    </footer>
-  </section>
-
-  <!-- Sticky Bottom Anchor Ad Slot -->
-  <div class="sticky bottom-0 w-full max-w-xl px-4 pb-2 z-10 pointer-events-none">
-    <div id="bottom-ad-slot" class="w-full flex items-center justify-center pointer-events-auto">
-      <!-- In-Page banners will anchor dynamically -->
-    </div>
-  </div>
-
-  <!-- Monetization Pop-Up Modal (Countdown + Direct Link Trigger) -->
-  <div id="adModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 flex flex-col items-center">
-      
-      <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-      </div>
-
-      <h3 class="text-base font-bold text-slate-900 mb-1">Compression Completed!</h3>
-      <p id="modalResultSize" class="text-xs font-semibold text-emerald-600 mb-3"></p>
-
-      <!-- Inside-Modal Ad Unit -->
-      <div id="modal-ad-slot" class="w-full min-h-[160px] flex items-center justify-center text-xs text-slate-400 my-2">
-        <div class="text-center text-slate-500 font-medium">Preparing secure download link...</div>
-      </div>
-
-      <!-- Countdown / Action Trigger Button -->
-      <button id="modalActionBtn" disabled onclick="handleDownloadWithAd()" class="w-full mt-4 bg-slate-300 text-slate-600 py-3 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
-        <span>Please wait</span> <span id="countdownTimer" class="font-extrabold text-blue-600">5</span> <span>seconds...</span>
-      </button>
-
-      <span class="text-[10px] text-slate-400 mt-2 text-center">Your free download supports our serverless platform.</span>
-    </div>
-  </div>
-
-  <!-- Compression & Monetization Engine -->
-  <script>
-    let currentLimitKB = 50;
-    let selectedFile = null;
-    let readyDownloadBlob = null;
-    let countdownInterval = null;
-
-    // ACTIVE MONETAG DIRECT LINK
-    const MONETIZATION_DIRECT_LINK = "https://uplcm.com/4/12069878";
-
-    function setPreset(type) {
-      const btnPhoto = document.getElementById('btn-photo');
-      const btnSig = document.getElementById('btn-signature');
-      const targetLabel = document.getElementById('targetLabel');
-
-      if (type === 'photo') {
-        currentLimitKB = 50;
-        targetLabel.innerText = 'Strictly < 50 KB';
-        btnPhoto.className = 'py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition';
-        btnSig.className = 'py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition';
-      } else {
-        currentLimitKB = 20;
-        targetLabel.innerText = 'Strictly < 20 KB';
-        btnSig.className = 'py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition';
-        btnPhoto.className = 'py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition';
-      }
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
     }
 
-    // Step 1: Detect File Selection & Run Visual Progress Indicator
-    document.getElementById('imageInput').addEventListener('change', (e) => {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      padding: 28px 20px;
+      border: 1px solid var(--border);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .upload-box {
+      border: 2px dashed #93c5fd;
+      background: #eff6ff;
+      border-radius: var(--radius);
+      padding: 28px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .upload-box:hover {
+      background: #dbeafe;
+      border-color: var(--primary);
+    }
+
+    .upload-box input[type="file"] {
+      display: none;
+    }
+
+    .upload-icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .upload-text {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .upload-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .presets-container {
+      margin-top: 20px;
+    }
+
+    .presets-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+      display: block;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .preset-btn {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: left;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .preset-btn.active {
+      border-color: var(--primary);
+      background: #eff6ff;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .preset-btn span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .btn-compress {
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-compress:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-compress:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 999;
+    }
+
+    .modal-card {
+      background: white;
+      width: 100%;
+      max-width: 440px;
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-card h3 {
+      font-size: 1.25rem;
+      color: #16a34a;
+      margin-bottom: 8px;
+    }
+
+    .file-stat {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .btn-download {
+      width: 100%;
+      padding: 13px;
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-download:hover {
+      background: #15803d;
+    }
+
+    .btn-download:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .modal-close {
+      margin-top: 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px 0 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>ExamDocsResizer</h1>
+      <p>Compress passport photos & signatures strictly under exam KB limits</p>
+    </header>
+
+    <!-- Upload Section -->
+    <div class="upload-box" id="dropArea" onclick="document.getElementById('fileInput').click()">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text" id="uploadLabel">Choose or drop document image</div>
+      <div class="upload-sub">Supports JPG, PNG & WEBP (Client-Side, Safe)</div>
+      <input type="file" id="fileInput" accept="image/*" />
+    </div>
+
+    <!-- Exam Presets -->
+    <div class="presets-container">
+      <label class="presets-label">Select Exam Target Specification:</label>
+      <div class="preset-grid">
+        <button type="button" class="preset-btn active" data-max="50" data-w="350" data-h="450">
+          Photo (Max 50KB)
+          <span>SSC, UPSC, IBPS, State PSC</span>
+        </button>
+        <button type="button" class="preset-btn" data-max="20" data-w="300" data-h="150">
+          Signature (Max 20KB)
+          <span>Standard 10KB - 20KB limit</span>
+        </button>
+        <button type="button" class="preset-btn" data-max="100" data-w="600" data-h="800">
+          Certificate (Max 100KB)
+          <span>Marksheet / ID Proof</span>
+        </button>
+        <button type="button" class="preset-btn" data-max="300" data-w="800" data-h="1000">
+          Document (Max 300KB)
+          <span>UPSC & Police recruits</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <button type="button" id="compressBtn" class="btn-compress" disabled>Select an Image First</button>
+  </div>
+
+  <!-- Download & Monetization Modal -->
+  <div class="modal-overlay" id="downloadModal">
+    <div class="modal-card">
+      <h3>✓ Compression Ready!</h3>
+      <p class="file-stat" id="resultStats">Result: Calculating size...</p>
+      
+      <button type="button" id="downloadBtn" class="btn-download" disabled>
+        Please wait (5s)...
+      </button>
+
+      <div>
+        <button type="button" class="modal-close" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    100% Client-Side Processing • Your images are never saved to any external server.
+  </footer>
+
+  <script>
+    // --- REPLACE THIS WITH YOUR MONETAG SMARTLINK ---
+    const MONETAG_SMARTLINK = "https://uplcm.com/your-smartlink-here";
+
+    const fileInput = document.getElementById('fileInput');
+    const uploadLabel = document.getElementById('uploadLabel');
+    const compressBtn = document.getElementById('compressBtn');
+    const presetBtns = document.querySelectorAll('.preset-btn');
+    const downloadModal = document.getElementById('downloadModal');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resultStats = document.getElementById('resultStats');
+
+    let currentFile = null;
+    let compressedBlob = null;
+    let selectedPreset = { maxKB: 50, w: 350, h: 450 };
+
+    // Preset Selection Handler
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        presetBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPreset = {
+          maxKB: parseInt(btn.dataset.max),
+          w: parseInt(btn.dataset.w),
+          h: parseInt(btn.dataset.h)
+        };
+      });
+    });
+
+    // File Input Listener
+    fileInput.addEventListener('change', (e) => {
       if (e.target.files && e.target.files[0]) {
-        selectedFile = e.target.files[0];
-
-        const uploadDefault = document.getElementById('uploadDefault');
-        const uploadSelected = document.getElementById('uploadSelected');
-        const uploadProgressContainer = document.getElementById('uploadProgressContainer');
-        const uploadProgressBar = document.getElementById('uploadProgressBar');
-        const uploadProgressText = document.getElementById('uploadProgressText');
-        const selectedThumbnail = document.getElementById('selectedThumbnail');
-        const selectedFileName = document.getElementById('selectedFileName');
-        const selectedFileSize = document.getElementById('selectedFileSize');
-        const processBtn = document.getElementById('processBtn');
-
-        uploadDefault.classList.add('hidden');
-        uploadSelected.classList.add('hidden');
-        uploadProgressContainer.classList.remove('hidden');
-        processBtn.disabled = true;
-
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress += 20;
-          uploadProgressBar.style.width = progress + '%';
-          uploadProgressText.innerText = progress + '%';
-
-          if (progress >= 100) {
-            clearInterval(interval);
-            
-            const reader = new FileReader();
-            reader.onload = (event) => {
-              selectedThumbnail.src = event.target.result;
-              selectedFileName.innerText = selectedFile.name;
-              selectedFileSize.innerText = `Original Size: ${(selectedFile.size / 1024).toFixed(1)} KB`;
-
-              uploadProgressContainer.classList.add('hidden');
-              uploadSelected.classList.remove('hidden');
-              processBtn.disabled = false;
-            };
-            reader.readAsDataURL(selectedFile);
-          }
-        }, 60);
+        currentFile = e.target.files[0];
+        uploadLabel.textContent = `Selected: ${currentFile.name}`;
+        compressBtn.disabled = false;
+        compressBtn.textContent = 'Compress Image';
       }
     });
 
-    // Step 2: Native Canvas Engine (Zero Cropping, Strict Byte Ceiling)
-    function compressNative(file, maxKB) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event) => {
-          const img = new Image();
-          img.src = event.target.result;
-          img.onload = () => {
-            const targetBytes = (maxKB * 0.92) * 1024;
-            
-            let width = img.naturalWidth;
-            let height = img.naturalHeight;
-            const maxDimension = maxKB <= 20 ? 800 : 1200;
+    // Compression Engine (Runs entirely inside the browser canvas)
+    compressBtn.addEventListener('click', async () => {
+      if (!currentFile) return;
 
-            if (width > maxDimension || height > maxDimension) {
-              if (width > height) {
-                height = Math.round((height * maxDimension) / width);
-                width = maxDimension;
-              } else {
-                width = Math.round((width * maxDimension) / height);
-                height = maxDimension;
-              }
-            }
+      compressBtn.disabled = true;
+      compressBtn.textContent = 'Processing...';
 
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = URL.createObjectURL(currentFile);
 
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(0, 0, width, height);
-            ctx.drawImage(img, 0, 0, width, height);
+      img.onload = async () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
 
-            let minQuality = 0.05;
-            let maxQuality = 0.95;
-            let bestBlob = null;
-            let passes = 0;
+        // Resize proportionally if larger than preset dimensions
+        if (width > selectedPreset.w || height > selectedPreset.h) {
+          const ratio = Math.min(selectedPreset.w / width, selectedPreset.h / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
 
-            function iterate() {
-              const currentQuality = (minQuality + maxQuality) / 2;
-              canvas.toBlob((blob) => {
-                if (!blob) return reject(new Error('Canvas export failed'));
+        canvas.width = width;
+        canvas.height = height;
 
-                passes++;
-                if (blob.size <= targetBytes) {
-                  bestBlob = blob;
-                  minQuality = currentQuality;
-                } else {
-                  maxQuality = currentQuality;
-                }
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
 
-                if (passes < 8 && (maxQuality - minQuality > 0.04)) {
-                  iterate();
-                } else {
-                  if (!bestBlob || bestBlob.size > (maxKB * 1024)) {
-                    const fallbackCanvas = document.createElement('canvas');
-                    fallbackCanvas.width = Math.round(width * 0.75);
-                    fallbackCanvas.height = Math.round(height * 0.75);
-                    const fbCtx = fallbackCanvas.getContext('2d');
-                    fbCtx.fillStyle = '#FFFFFF';
-                    fbCtx.fillRect(0, 0, fallbackCanvas.width, fallbackCanvas.height);
-                    fbCtx.drawImage(img, 0, 0, fallbackCanvas.width, fallbackCanvas.height);
-                    fallbackCanvas.toBlob((finalBlob) => {
-                      resolve(finalBlob);
-                    }, 'image/jpeg', 0.65);
-                  } else {
-                    resolve(bestBlob);
-                  }
-                }
-              }, 'image/jpeg', currentQuality);
-            }
+        // Binary Search iteration to guarantee file falls strictly below maxKB
+        let minQuality = 0.05;
+        let maxQuality = 0.95;
+        let bestBlob = null;
 
-            iterate();
-          };
-          img.onerror = (err) => reject(err);
-        };
-        reader.onerror = (err) => reject(err);
-      });
-    }
+        for (let i = 0; i < 6; i++) {
+          const midQuality = (minQuality + maxQuality) / 2;
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', midQuality));
+          const sizeKB = blob.size / 1024;
 
-    // Step 3: Trigger Compression and Open the Monetization Dialog
-    async function startCompressionProcess() {
-      if (!selectedFile) return;
-      const processBtn = document.getElementById('processBtn');
-      processBtn.disabled = true;
-      processBtn.innerText = 'Compressing...';
+          if (sizeKB <= selectedPreset.maxKB) {
+            bestBlob = blob;
+            minQuality = midQuality; // Try higher quality
+          } else {
+            maxQuality = midQuality; // Lower quality to meet limit
+          }
+        }
 
-      try {
-        readyDownloadBlob = await compressNative(selectedFile, currentLimitKB);
-        const finalKB = (readyDownloadBlob.size / 1024).toFixed(1);
+        if (!bestBlob) {
+          bestBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.1));
+        }
 
-        document.getElementById('modalResultSize').innerText = `Target: ≤ ${currentLimitKB} KB | Final: ${finalKB} KB`;
-        openAdModal();
-      } catch (err) {
-        alert('Could not compress image. Please ensure it is a valid JPG/PNG file.');
-        console.error(err);
-      } finally {
-        processBtn.disabled = false;
-        processBtn.innerText = 'Compress Image';
-      }
-    }
+        compressedBlob = bestBlob;
+        const finalKB = (compressedBlob.size / 1024).toFixed(1);
+        resultStats.textContent = `Original: ${(currentFile.size / 1024).toFixed(1)} KB ➔ Compressed: ${finalKB} KB (Target: ≤ ${selectedPreset.maxKB} KB)`;
 
-    // Step 4: Ad Modal Countdown Logic
-    function openAdModal() {
-      const modal = document.getElementById('adModal');
-      const actionBtn = document.getElementById('modalActionBtn');
-      const countdownTimer = document.getElementById('countdownTimer');
+        compressBtn.disabled = false;
+        compressBtn.textContent = 'Compress Image';
+        showDownloadModal();
+      };
+    });
 
-      modal.classList.remove('hidden');
-      actionBtn.disabled = true;
-      actionBtn.className = 'w-full mt-4 bg-slate-300 text-slate-600 py-3 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-not-allowed';
+    // Modal & 5-Second Countdown
+    function showDownloadModal() {
+      downloadModal.style.display = 'flex';
+      let countdown = 5;
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = `Please wait (${countdown}s)...`;
 
-      let timeLeft = 5;
-      countdownTimer.innerText = timeLeft;
-
-      if (countdownInterval) clearInterval(countdownInterval);
-
-      countdownInterval = setInterval(() => {
-        timeLeft--;
-        countdownTimer.innerText = timeLeft;
-
-        if (timeLeft <= 0) {
-          clearInterval(countdownInterval);
-          actionBtn.disabled = false;
-          actionBtn.innerHTML = '⬇️ Download Compressed Document';
-          actionBtn.className = 'w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs sm:text-sm shadow-lg transition flex items-center justify-center gap-2 cursor-pointer';
+      const timer = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+          downloadBtn.textContent = `Please wait (${countdown}s)...`;
+        } else {
+          clearInterval(timer);
+          downloadBtn.disabled = false;
+          downloadBtn.textContent = '⬇️ Download Compressed Document';
         }
       }, 1000);
     }
 
-    // Step 5: Download & Direct Link Ad Trigger
-    function handleDownloadWithAd() {
-      if (!readyDownloadBlob) return;
+    function closeModal() {
+      downloadModal.style.display = 'none';
+    }
 
-      if (MONETIZATION_DIRECT_LINK) {
-        window.open(MONETIZATION_DIRECT_LINK, '_blank');
-      }
+    // Download & Ad Trigger
+    downloadBtn.addEventListener('click', () => {
+      if (!compressedBlob) return;
 
-      const downloadUrl = URL.createObjectURL(readyDownloadBlob);
+      // 1. Download file directly
       const a = document.createElement('a');
-      a.href = downloadUrl;
-      a.download = `exam_${currentLimitKB}kb_${selectedFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
+      a.href = URL.createObjectURL(compressedBlob);
+      a.download = `ExamResized_${Date.now()}.jpg`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(downloadUrl);
 
-      document.getElementById('adModal').classList.add('hidden');
-    }
+      // 2. Open Monetag Ad link in background/new tab
+      if (MONETAG_SMARTLINK && !MONETAG_SMARTLINK.includes("your-smartlink-here")) {
+        window.open(MONETAG_SMARTLINK, '_blank');
+      }
+
+      closeModal();
+    });
   </script>
 </body>
 </html>
