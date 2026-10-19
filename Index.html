@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Govt Exam Photo & Signature Compressor - Fast & 100% Free</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- In-browser client-side compression library -->
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col pb-28">
+
+  <!-- Header -->
+  <header class="bg-white border-b py-3 px-6 shadow-sm">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <span class="text-xl font-bold text-blue-600">ExamDocs Resizer</span>
+      <span class="text-xs text-green-600 font-semibold bg-green-50 px-2.5 py-1 rounded-full border border-green-200">100% Secure & In-Browser</span>
+    </div>
+  </header>
+
+  <!-- SLOT 1: TOP PERMANENT BANNER (728x90 Desktop / 320x50 Mobile) -->
+  <div class="w-full max-w-3xl mx-auto my-3 px-4 flex justify-center">
+    <div class="w-full flex items-center justify-center min-h-[90px] bg-slate-200/60 rounded border border-dashed border-slate-300 text-xs text-slate-400">
+      <!-- ============================================== -->
+      <!-- PASTE YOUR ADSTERRA/MONETAG 728x90 CODE BELOW -->
+      <!-- ============================================== -->
+      <span>Top Banner Ad Unit (728x90)</span>
+      <!-- ============================================== -->
+    </div>
+  </div>
+
+  <!-- Main Compression Tool Container -->
+  <main class="max-w-xl w-full mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mt-2 px-6">
+    <div class="text-center mb-5">
+      <h1 class="text-xl font-bold text-slate-900">Resize Photo & Signature in Seconds</h1>
+      <p class="text-xs text-slate-500 mt-1">Preset limits for SSC, UPSC, IBPS, Railways & State Exams</p>
+    </div>
+
+    <!-- Mode Selector: Photo vs Signature -->
+    <div class="flex gap-2 p-1 bg-slate-100 rounded-xl mb-5">
+      <button id="photoTab" type="button" class="flex-1 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition-all shadow-sm">
+        1. Passport Photo (Max 50KB)
+      </button>
+      <button id="signTab" type="button" class="flex-1 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+        2. Signature (Max 20KB)
+      </button>
+    </div>
+
+    <!-- Upload Drop Zone -->
+    <label for="upload" class="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-6 cursor-pointer hover:border-blue-500 transition-colors bg-slate-50/50 hover:bg-blue-50/30">
+      <svg class="w-8 h-8 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+      </svg>
+      <span id="uploadLabel" class="text-xs font-medium text-slate-700">Choose or drop Passport Photo here</span>
+      <input id="upload" type="file
