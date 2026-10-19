@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="monetag" content="67e242e0d213fbe3226b669df15bf4b3">
+  
+  <!-- Monetag Vignette / In-Page Script -->
+  <script>(function(s){s.dataset.zone='12069902',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
   <title>ExamDocsResizer - Free Photo & Signature Compressor</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -16,8 +20,8 @@
 
   <!-- Top Banner Ad Unit Slot -->
   <div class="w-full max-w-xl my-3 px-4">
-    <div id="top-ad-slot" class="w-full h-24 bg-slate-100 border border-dashed border-slate-300 rounded-xl flex items-center justify-center text-xs text-slate-400">
-      Top Banner Ad Unit (728x90)
+    <div id="top-ad-slot" class="w-full min-h-[90px] flex items-center justify-center overflow-hidden">
+      <!-- Vignette and In-Page triggers display dynamically -->
     </div>
   </div>
 
@@ -154,9 +158,9 @@
   </section>
 
   <!-- Sticky Bottom Anchor Ad Slot -->
-  <div class="sticky bottom-0 w-full max-w-xl px-4 pb-2 z-10">
-    <div id="bottom-ad-slot" class="w-full h-12 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center text-xs text-slate-400 shadow-sm">
-      Bottom Sticky Anchor Ad Unit
+  <div class="sticky bottom-0 w-full max-w-xl px-4 pb-2 z-10 pointer-events-none">
+    <div id="bottom-ad-slot" class="w-full flex items-center justify-center pointer-events-auto">
+      <!-- In-Page banners will anchor dynamically -->
     </div>
   </div>
 
@@ -171,9 +175,9 @@
       <h3 class="text-base font-bold text-slate-900 mb-1">Compression Completed!</h3>
       <p id="modalResultSize" class="text-xs font-semibold text-emerald-600 mb-3"></p>
 
-      <!-- Inside-Modal Ad Slot (300x250) -->
-      <div id="modal-ad-slot" class="w-full h-52 bg-slate-100 border border-dashed border-slate-300 rounded-xl flex items-center justify-center text-xs text-slate-400 my-2">
-        Advertisement Unit (300x250)
+      <!-- Inside-Modal Ad Unit -->
+      <div id="modal-ad-slot" class="w-full min-h-[160px] flex items-center justify-center text-xs text-slate-400 my-2">
+        <div class="text-center text-slate-500 font-medium">Preparing secure download link...</div>
       </div>
 
       <!-- Countdown / Action Trigger Button -->
@@ -389,16 +393,14 @@
       }, 1000);
     }
 
-    // Step 5: Download & Ad Trigger
+    // Step 5: Download & Direct Link Ad Trigger
     function handleDownloadWithAd() {
       if (!readyDownloadBlob) return;
 
-      // Opens Monetag Direct Link in a new tab
       if (MONETIZATION_DIRECT_LINK) {
         window.open(MONETIZATION_DIRECT_LINK, '_blank');
       }
 
-      // Triggers download of the compressed file
       const downloadUrl = URL.createObjectURL(readyDownloadBlob);
       const a = document.createElement('a');
       a.href = downloadUrl;
@@ -408,7 +410,6 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(downloadUrl);
 
-      // Dismiss modal
       document.getElementById('adModal').classList.add('hidden');
     }
   </script>
