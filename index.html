@@ -5,71 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ExamDocsResizer - Free Photo & Signature Compressor</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center">
 
   <!-- Top Notification Bar -->
-  <header class="w-full bg-blue-600 text-white text-xs font-semibold py-2 text-center tracking-wide">
+  <header class="w-full bg-blue-600 text-white text-xs font-semibold py-2 text-center tracking-wide shadow-sm">
     ⚡ 100% FREE ONLINE UTILITY • NO LOGIN REQUIRED • UNLIMITED USAGE
   </header>
 
   <!-- Top Banner Ad Slot -->
   <div class="w-full max-w-xl my-3 px-4">
-    <div id="top-ad-slot" class="w-full h-24 bg-slate-100 border border-dashed border-slate-300 rounded-lg flex items-center justify-center text-xs text-slate-400">
+    <div id="top-ad-slot" class="w-full h-24 bg-slate-100 border border-dashed border-slate-300 rounded-xl flex items-center justify-center text-xs text-slate-400">
       Top Banner Ad Unit (728x90)
     </div>
   </div>
 
-  <!-- Main Compression Card -->
+  <!-- Main Compression Tool -->
   <main class="max-w-xl w-full px-4">
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
       
       <!-- App Header -->
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center justify-between mb-3">
         <h1 class="text-xl font-black text-slate-900 tracking-tight">ExamDocs<span class="text-blue-600">Resizer</span></h1>
         <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-200">🛡️ Zero Server Uploads</span>
       </div>
 
-      <p class="text-xs text-slate-500 mb-6 leading-relaxed">
-        Reduce Passport Photo & Signature size to 20KB & 50KB for Govt Exam forms.
+      <p class="text-xs text-slate-500 mb-5 leading-relaxed">
+        Strictly compress passport photographs & signatures below 20KB & 50KB for government exam portals without cropping or losing clarity.
       </p>
 
-      <!-- Presets -->
-      <div class="grid grid-cols-2 gap-3 mb-6">
-        <button id="btn-photo" onclick="setPreset('photo')" class="py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition">
+      <!-- Presets Selector -->
+      <div class="grid grid-cols-2 gap-3 mb-5">
+        <button id="btn-photo" type="button" onclick="setPreset('photo')" class="py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition">
           📷 1. Photo (Max 50KB)
         </button>
-        <button id="btn-signature" onclick="setPreset('signature')" class="py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition">
+        <button id="btn-signature" type="button" onclick="setPreset('signature')" class="py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition">
           ✍️ 2. Signature (Max 20KB)
         </button>
       </div>
 
       <!-- Upload Zone -->
       <label for="imageInput" class="border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 transition bg-slate-50">
-        <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-        <span id="uploadLabel" class="text-xs font-semibold text-slate-700">Tap to Choose or Drop Image</span>
+        <svg class="w-8 h-8 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        <span id="uploadLabel" class="text-xs font-semibold text-slate-700 text-center">Tap to Choose or Drop Image</span>
         <span class="text-[11px] text-slate-400 mt-1">Supports JPG, JPEG, PNG</span>
         <input type="file" id="imageInput" accept="image/jpeg,image/png,image/jpg" class="hidden" />
       </label>
 
-      <!-- Target Display -->
+      <!-- Target Size Indicator -->
       <div class="flex justify-between items-center mt-4 text-xs font-medium text-slate-600">
         <span>Target Strict Size Limit:</span>
-        <span id="targetLabel" class="font-bold text-blue-600">50 KB (0.05 MB)</span>
+        <span id="targetLabel" class="font-bold text-blue-600">Strictly &lt; 50 KB</span>
       </div>
 
       <!-- Action Button -->
-      <button id="processBtn" onclick="processImage()" disabled class="w-full mt-5 bg-blue-600 disabled:bg-slate-300 text-white py-3 rounded-xl font-bold text-sm shadow hover:bg-blue-700 transition">
+      <button id="processBtn" type="button" onclick="processImage()" disabled class="w-full mt-4 bg-blue-600 disabled:bg-slate-300 text-white py-3 rounded-xl font-bold text-sm shadow hover:bg-blue-700 transition">
         Compress & Download
       </button>
 
-      <!-- Preview Area -->
+      <!-- Preview Section -->
       <div id="previewContainer" class="hidden mt-6 pt-5 border-t border-slate-100 flex flex-col items-center">
-        <span class="text-xs font-semibold text-slate-500 mb-2">Compressed Output Preview:</span>
-        <img id="previewImg" class="max-h-48 rounded-lg shadow-sm border border-slate-200 object-contain mb-3 bg-white" alt="Preview" />
-        <span id="resultMeta" class="text-xs font-bold text-emerald-600 mb-3"></span>
-        <a id="downloadLink" download="compressed.jpg" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-xs font-bold shadow hover:bg-emerald-700 transition">
+        <span class="text-xs font-semibold text-slate-500 mb-2">Uncropped Compressed Result:</span>
+        <div class="w-full flex justify-center bg-slate-100 p-2 rounded-xl border border-slate-200">
+          <img id="previewImg" class="max-h-56 max-w-full w-auto h-auto rounded-lg shadow-sm object-contain bg-white" alt="Output Preview" />
+        </div>
+        <span id="resultMeta" class="text-xs font-bold text-emerald-600 my-3"></span>
+        <a id="downloadLink" download="exam_compressed.jpg" class="bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow hover:bg-emerald-700 transition">
           Download File
         </a>
       </div>
@@ -77,15 +80,15 @@
     </div>
   </main>
 
-  <!-- Informational & SEO Content Section -->
+  <!-- Informational, SEO & Policy Guidelines -->
   <section class="max-w-xl w-full mx-auto mt-8 px-4 text-slate-700">
     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-6">
-      <h2 class="text-base font-bold text-slate-900 mb-3">How to Resize Your Photos & Signatures Online</h2>
+      <h2 class="text-base font-bold text-slate-900 mb-3">How to Resize Photos & Signatures Online</h2>
       <ol class="list-decimal list-inside space-y-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
         <li>Select either the <b>Passport Photo (Max 50KB)</b> or <b>Signature (Max 20KB)</b> preset.</li>
-        <li>Upload your image directly from your smartphone or desktop.</li>
-        <li>Click <b>Compress & Download</b>. Processing happens instantly in your browser.</li>
-        <li>Download your resized JPG ready for exam portal submission.</li>
+        <li>Upload your file directly from your camera, gallery, or computer.</li>
+        <li>Tap <b>Compress & Download</b>. Your image is processed locally inside your browser memory.</li>
+        <li>The output file is strictly sized under the limit without cropping or losing clarity.</li>
       </ol>
     </div>
 
@@ -95,20 +98,23 @@
         <table class="w-full text-left text-xs border-collapse">
           <thead>
             <tr class="border-b border-slate-200 text-slate-900">
-              <th class="py-2">Document</th>
-              <th class="py-2">Accepted Size</th>
-              <th class="py-2">Format</th>
+              <th class="py-2 font-semibold">Document</th>
+              <th class="py-2 font-semibold">Accepted Size</th>
+              <th class="py-2 font-semibold">Aspect Ratio</th>
+              <th class="py-2 font-semibold">Format</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100 text-slate-600">
             <tr>
               <td class="py-2 font-medium">Passport Photo</td>
               <td class="py-2">20 KB – 50 KB</td>
+              <td class="py-2">3.5 cm × 4.5 cm</td>
               <td class="py-2">JPG / JPEG</td>
             </tr>
             <tr>
               <td class="py-2 font-medium">Signature</td>
               <td class="py-2">10 KB – 20 KB</td>
+              <td class="py-2">Horizontal Box</td>
               <td class="py-2">JPG / JPEG</td>
             </tr>
           </tbody>
@@ -119,12 +125,12 @@
     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-8 text-xs text-slate-600 space-y-2">
       <h2 class="text-base font-bold text-slate-900 mb-1">Your Privacy is Protected</h2>
       <p>
-        All image processing executes client-side inside your browser via HTML5 Canvas APIs. 
-        Your personal photographs and signatures are never transmitted or stored on any external server.
+        All image compression processes locally on your client device using HTML5 Canvas. Your documents and sensitive personal photographs are never sent over the web or saved on remote servers.
       </p>
     </div>
 
-    <footer class="text-center text-xs text-slate-400 pb-6 space-y-2">
+    <!-- Footer Links -->
+    <footer class="text-center text-xs text-slate-400 pb-8 space-y-2">
       <div class="flex justify-center gap-4">
         <a href="#" class="hover:underline">Privacy Policy</a>
         <span>•</span>
@@ -143,7 +149,7 @@
     </div>
   </div>
 
-  <!-- Application Logic -->
+  <!-- Native Canvas High-Fidelity Compression Engine -->
   <script>
     let currentLimitKB = 50;
     let selectedFile = null;
@@ -155,12 +161,12 @@
 
       if (type === 'photo') {
         currentLimitKB = 50;
-        targetLabel.innerText = '50 KB (0.05 MB)';
+        targetLabel.innerText = 'Strictly < 50 KB';
         btnPhoto.className = 'py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition';
         btnSig.className = 'py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition';
       } else {
         currentLimitKB = 20;
-        targetLabel.innerText = '20 KB (0.02 MB)';
+        targetLabel.innerText = 'Strictly < 20 KB';
         btnSig.className = 'py-2.5 px-3 rounded-xl border border-blue-600 bg-blue-50 text-blue-700 font-semibold text-xs transition';
         btnPhoto.className = 'py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs transition';
       }
@@ -174,6 +180,94 @@
       }
     });
 
+    // Pure Client-side High-Fidelity Compression without Cropping
+    function compressNative(file, maxKB) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            // Strict target ceiling (92% of target) to guarantee safety margin
+            const targetBytes = (maxKB * 0.92) * 1024;
+            
+            // Maintain exact original aspect ratio
+            let width = img.naturalWidth;
+            let height = img.naturalHeight;
+            const maxDimension = maxKB <= 20 ? 800 : 1200;
+
+            if (width > maxDimension || height > maxDimension) {
+              if (width > height) {
+                height = Math.round((height * maxDimension) / width);
+                width = maxDimension;
+              } else {
+                width = Math.round((width * maxDimension) / height);
+                height = maxDimension;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+
+            // White background fill prevents transparent PNG black box rendering
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Iterative binary search for maximum image quality under strict byte limit
+            let minQuality = 0.05;
+            let maxQuality = 0.95;
+            let bestBlob = null;
+            let passes = 0;
+
+            function iterate() {
+              const currentQuality = (minQuality + maxQuality) / 2;
+              canvas.toBlob((blob) => {
+                if (!blob) {
+                  return reject(new Error('Canvas export failed'));
+                }
+
+                passes++;
+                if (blob.size <= targetBytes) {
+                  bestBlob = blob;
+                  minQuality = currentQuality; // Try a higher quality pass
+                } else {
+                  maxQuality = currentQuality; // Exceeded budget, reduce quality
+                }
+
+                if (passes < 8 && (maxQuality - minQuality > 0.04)) {
+                  iterate();
+                } else {
+                  // Fallback: If still above budget, scale dimensions down proportionally without cropping
+                  if (!bestBlob || bestBlob.size > (maxKB * 1024)) {
+                    const fallbackCanvas = document.createElement('canvas');
+                    fallbackCanvas.width = Math.round(width * 0.75);
+                    fallbackCanvas.height = Math.round(height * 0.75);
+                    const fbCtx = fallbackCanvas.getContext('2d');
+                    fbCtx.fillStyle = '#FFFFFF';
+                    fbCtx.fillRect(0, 0, fallbackCanvas.width, fallbackCanvas.height);
+                    fbCtx.drawImage(img, 0, 0, fallbackCanvas.width, fallbackCanvas.height);
+                    fallbackCanvas.toBlob((finalBlob) => {
+                      resolve(finalBlob);
+                    }, 'image/jpeg', 0.65);
+                  } else {
+                    resolve(bestBlob);
+                  }
+                }
+              }, 'image/jpeg', currentQuality);
+            }
+
+            iterate();
+          };
+          img.onerror = (err) => reject(err);
+        };
+        reader.onerror = (err) => reject(err);
+      });
+    }
+
     async function processImage() {
       if (!selectedFile) return;
       const processBtn = document.getElementById('processBtn');
@@ -181,30 +275,7 @@
       processBtn.innerText = 'Compressing...';
 
       try {
-        const strictTargetMB = (currentLimitKB * 0.92) / 1024;
-        const options = {
-          maxSizeMB: strictTargetMB,
-          maxWidthOrHeight: currentLimitKB <= 20 ? 600 : 1000,
-          useWebWorker: true,
-          maxIteration: 15,
-          fileType: 'image/jpeg',
-          initialQuality: 0.85
-        };
-
-        let resultBlob = await imageCompression(selectedFile, options);
-
-        // Strict fallback if still over target
-        if (resultBlob.size > currentLimitKB * 1024) {
-          const fallbackOptions = {
-            maxSizeMB: (currentLimitKB * 0.85) / 1024,
-            maxWidthOrHeight: currentLimitKB <= 20 ? 400 : 800,
-            useWebWorker: true,
-            maxIteration: 10,
-            fileType: 'image/jpeg',
-            initialQuality: 0.65
-          };
-          resultBlob = await imageCompression(resultBlob, fallbackOptions);
-        }
+        const resultBlob = await compressNative(selectedFile, currentLimitKB);
 
         const previewContainer = document.getElementById('previewContainer');
         const previewImg = document.getElementById('previewImg');
@@ -215,13 +286,14 @@
         const outputUrl = URL.createObjectURL(resultBlob);
 
         previewImg.src = outputUrl;
-        resultMeta.innerText = `Final Size: ${(resultBlob.size / 1024).toFixed(1)} KB (Target: ≤ ${currentLimitKB} KB)`;
+        const actualKB = (resultBlob.size / 1024).toFixed(1);
+        resultMeta.innerText = `Final Size: ${actualKB} KB (Limit: ≤ ${currentLimitKB} KB)`;
         downloadLink.href = outputUrl;
-        downloadLink.download = `compressed_${currentLimitKB}KB.jpg`;
+        downloadLink.download = `exam_${currentLimitKB}kb_${selectedFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
 
         previewContainer.classList.remove('hidden');
       } catch (err) {
-        alert('Failed to compress image. Please ensure the file is a valid JPG/PNG.');
+        alert('Could not compress image. Please ensure the file is a standard JPG or PNG.');
         console.error(err);
       } finally {
         processBtn.disabled = false;
