@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="monetag" content="67e242e0d213fbe3226b669df15bf4b3">
   <title>ExamDocsResizer - Free Photo & Signature Compressor</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -139,6 +140,7 @@
       </p>
     </div>
 
+    <!-- Footer Links -->
     <footer class="text-center text-xs text-slate-400 pb-8 space-y-2">
       <div class="flex justify-center gap-4">
         <a href="#" class="hover:underline">Privacy Policy</a>
@@ -160,7 +162,7 @@
 
   <!-- Monetization Pop-Up Modal (Countdown + Direct Link Trigger) -->
   <div id="adModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 flex flex-col items-center animate-fade-in">
+    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 flex flex-col items-center">
       
       <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -190,7 +192,7 @@
     let readyDownloadBlob = null;
     let countdownInterval = null;
 
-    // REPLACE THIS with your Monetag Direct Link or Adsterra SmartLink URL
+    // REPLACE THIS with your Monetag Direct Link once generated
     const MONETIZATION_DIRECT_LINK = "https://example.com/directlink";
 
     function setPreset(type) {
@@ -226,7 +228,6 @@
         const selectedFileSize = document.getElementById('selectedFileSize');
         const processBtn = document.getElementById('processBtn');
 
-        // Hide idle state, show progress bar
         uploadDefault.classList.add('hidden');
         uploadSelected.classList.add('hidden');
         uploadProgressContainer.classList.remove('hidden');
@@ -241,7 +242,6 @@
           if (progress >= 100) {
             clearInterval(interval);
             
-            // Read file and render visible preview thumbnail
             const reader = new FileReader();
             reader.onload = (event) => {
               selectedThumbnail.src = event.target.result;
@@ -258,7 +258,7 @@
       }
     });
 
-    // Step 2: High-Fidelity Compression Engine (Zero Cropping, Strict Byte Budget)
+    // Step 2: Native Canvas Engine (Zero Cropping, Strict Byte Ceiling)
     function compressNative(file, maxKB) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -288,7 +288,6 @@
             canvas.height = height;
             const ctx = canvas.getContext('2d');
 
-            // White background fill prevents transparent PNG black distortion
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, width, height);
             ctx.drawImage(img, 0, 0, width, height);
@@ -390,16 +389,14 @@
       }, 1000);
     }
 
-    // Step 5: User Clicked Download — Open Ad in New Tab & Download File
+    // Step 5: Download & Ad Trigger
     function handleDownloadWithAd() {
       if (!readyDownloadBlob) return;
 
-      // 1. Trigger the monetization link in a new tab on actual user tap
       if (MONETIZATION_DIRECT_LINK && MONETIZATION_DIRECT_LINK !== "https://example.com/directlink") {
         window.open(MONETIZATION_DIRECT_LINK, '_blank');
       }
 
-      // 2. Initiate automatic document download
       const downloadUrl = URL.createObjectURL(readyDownloadBlob);
       const a = document.createElement('a');
       a.href = downloadUrl;
@@ -409,7 +406,6 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(downloadUrl);
 
-      // 3. Close the modal
       document.getElementById('adModal').classList.add('hidden');
     }
   </script>
