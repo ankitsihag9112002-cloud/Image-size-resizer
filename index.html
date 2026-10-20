@@ -1,467 +1,338 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Meta Tags -->
-  <title>Online Photo & Signature Resizer for Govt Exams (SSC, UPSC, IBPS, State PSC)</title>
-  <meta name="description" content="Free online tool to resize and compress photos under 50KB and signatures under 20KB for SSC CGL, UPSC, IBPS, Police, and government exams. Secure, fast, and processed right inside your browser." />
-  <meta name="keywords" content="photo resizer 50kb, signature compressor 20kb, ssc photo resize, upsc signature resizer, ibps document resizer, exam photo compressor" />
-  <meta name="author" content="ExamDocsResizer" />
+  <!-- Exact Required Title for SEO -->
+  <title>Free image and signature size compressor no login requird forssc,sgl,neet,jee,etc</title>
+  <meta name="description" content="Ultra-precise, lossless-feel image and signature size compressor. Zero cropping, instant client-side processing, no login required." />
 
-  <!-- Monetag Ad Tag -->
-  <meta name="monetag" content="YOUR_MONETAG_TAG_HERE" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Favicon Links for Browser Tabs & Google Search -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
-  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#090A0F',
+            surface: '#11131C',
+            card: '#161926',
+            borderSubtle: 'rgba(255,255,255,0.08)',
+            accent: '#6366F1',
+            accentGlow: '#818CF8',
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --radius: 12px;
-    }
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      scroll-behavior: smooth;
     }
-
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 24px 16px;
+      background-color: #090A0F;
+      color: #F3F4F6;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      /* Space for top and bottom sticky ad bars */
+      padding-top: 66px;
+      padding-bottom: 66px;
     }
-
-    .container {
-      width: 100%;
-      max-width: 580px;
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-      padding: 28px 20px;
-      border: 1px solid var(--border);
+    /* Subtle radial studio glow */
+    .studio-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.14), transparent 55%);
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 24px;
+    /* Checkered transparency backdrop for image preview */
+    .checkerboard {
+      background-image: 
+        linear-gradient(45deg, #181B28 25%, transparent 25%), 
+        linear-gradient(-45deg, #181B28 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #181B28 75%), 
+        linear-gradient(-45deg, transparent 75%, #181B28 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+      background-color: #10121C;
     }
-
-    header h1 {
-      font-size: 1.6rem;
-      color: var(--primary);
-      margin-bottom: 6px;
+    /* Custom range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      height: 6px;
+      border-radius: 999px;
     }
-
-    header p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    .upload-box {
-      border: 2px dashed #93c5fd;
-      background: #eff6ff;
-      border-radius: var(--radius);
-      padding: 28px 16px;
-      text-align: center;
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #6366F1;
+      border: 2px solid #ffffff;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.7);
+      transition: transform 0.15s ease;
     }
-
-    .upload-box:hover {
-      background: #dbeafe;
-      border-color: var(--primary);
-    }
-
-    .upload-box input[type="file"] {
-      display: none;
-    }
-
-    .upload-icon {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-    }
-
-    .upload-text {
-      font-weight: 600;
-      color: var(--primary);
-      font-size: 1rem;
-    }
-
-    .upload-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .presets-container {
-      margin-top: 20px;
-    }
-
-    .presets-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--text);
-      display: block;
-    }
-
-    .preset-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .preset-btn {
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: #fff;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 500;
-      text-align: left;
-      transition: all 0.15s ease-in-out;
-    }
-
-    .preset-btn.active {
-      border-color: var(--primary);
-      background: #eff6ff;
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .preset-btn span {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .btn-compress {
-      width: 100%;
-      margin-top: 22px;
-      padding: 14px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-compress:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-compress:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    /* Modal Styling */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 999;
-    }
-
-    .modal-card {
-      background: white;
-      width: 100%;
-      max-width: 440px;
-      border-radius: var(--radius);
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-
-    .modal-card h3 {
-      font-size: 1.25rem;
-      color: #16a34a;
-      margin-bottom: 8px;
-    }
-
-    .file-stat {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .btn-download {
-      width: 100%;
-      padding: 13px;
-      background: #16a34a;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.98rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-download:hover {
-      background: #15803d;
-    }
-
-    .btn-download:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    .modal-close {
-      margin-top: 12px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: auto;
-      padding: 20px 0 10px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: center;
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
     }
   </style>
 </head>
-<body>
+<body class="studio-glow min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-  <div class="container">
-    <header>
-      <h1>ExamDocsResizer</h1>
-      <p>Compress passport photos & signatures strictly under exam KB limits</p>
-    </header>
-
-    <!-- Upload Section -->
-    <div class="upload-box" id="dropArea" onclick="document.getElementById('fileInput').click()">
-      <div class="upload-icon">📸</div>
-      <div class="upload-text" id="uploadLabel">Choose or drop document image</div>
-      <div class="upload-sub">Supports JPG, PNG & WEBP (Client-Side, Safe)</div>
-      <input type="file" id="fileInput" accept="image/*" />
+  <!-- ===================================================================== -->
+  <!-- AD #1: STICKY TOP BANNER AD CONTAINER (CLEAN SPACE FOR YOUR AD CODE)  -->
+  <!-- ===================================================================== -->
+  <div id="sticky-top-ad" class="fixed top-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-b border-white/10 flex items-center justify-center px-4">
+    <div class="w-full max-w-[728px] h-[50px] border border-dashed border-white/15 rounded-lg flex items-center justify-center text-[11px] font-mono uppercase tracking-widest text-zinc-500">
+      <!-- PASTE TOP STICKY BANNER AD SCRIPT HERE -->
+      <span>Ad Space #1 (Top Sticky Banner)</span>
     </div>
-
-    <!-- Exam Presets -->
-    <div class="presets-container">
-      <label class="presets-label">Select Exam Target Specification:</label>
-      <div class="preset-grid">
-        <button type="button" class="preset-btn active" data-max="50" data-w="350" data-h="450">
-          Photo (Max 50KB)
-          <span>SSC, UPSC, IBPS, State PSC</span>
-        </button>
-        <button type="button" class="preset-btn" data-max="20" data-w="300" data-h="150">
-          Signature (Max 20KB)
-          <span>Standard 10KB - 20KB limit</span>
-        </button>
-        <button type="button" class="preset-btn" data-max="100" data-w="600" data-h="800">
-          Certificate (Max 100KB)
-          <span>Marksheet / ID Proof</span>
-        </button>
-        <button type="button" class="preset-btn" data-max="300" data-w="800" data-h="1000">
-          Document (Max 300KB)
-          <span>UPSC & Police recruits</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Action Button -->
-    <button type="button" id="compressBtn" class="btn-compress" disabled>Select an Image First</button>
   </div>
 
-  <!-- Download & Monetization Modal -->
-  <div class="modal-overlay" id="downloadModal">
-    <div class="modal-card">
-      <h3>✓ Compression Ready!</h3>
-      <p class="file-stat" id="resultStats">Result: Calculating size...</p>
-      
-      <button type="button" id="downloadBtn" class="btn-download" disabled>
-        Please wait (5s)...
+  <!-- ===================================================================== -->
+  <!-- TOP NAVIGATION HEADER                                                 -->
+  <!-- ===================================================================== -->
+  <header class="w-full border-b border-white/[0.07] bg-[#090A0F]/80 backdrop-blur-xl sticky top-[60px] z-30">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <!-- Brand -->
+      <button onclick="switchView('home')" class="flex items-center gap-2.5 text-left group focus:outline-none">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-semibold tracking-tight text-white text-sm sm:text-base">OptiScale</span>
+          <span class="text-[10px] font-mono uppercase tracking-widest px-1.5 py-0.5 rounded bg-white/5 text-indigo-400 border border-white/10 ml-1.5">Studio</span>
+        </div>
       </button>
 
-      <div>
-        <button type="button" class="modal-close" onclick="closeModal()">Close</button>
-      </div>
+      <!-- Navigation Links -->
+      <nav class="flex items-center gap-1 sm:gap-2">
+        <button onclick="switchView('home')" id="nav-home" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-white bg-white/10 transition">
+          Compressor
+        </button>
+        <button onclick="scrollToFaq()" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition">
+          FAQ
+        </button>
+        <button onclick="switchView('privacy')" id="nav-privacy" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition">
+          Privacy Policy
+        </button>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <footer>
-    100% Client-Side Processing • Your images are never saved to any external server.
-  </footer>
+  <!-- ===================================================================== -->
+  <!-- MAIN CONTENT AREA (STRICTLY 2-PAGE SCROLL FEEL FOR HOME VIEW)         -->
+  <!-- ===================================================================== -->
+  <main class="flex-grow">
 
-  <script>
-    // --- REPLACE THIS WITH YOUR MONETAG SMARTLINK ---
-    const MONETAG_SMARTLINK = "https://uplcm.com/your-smartlink-here";
+    <!-- ======================= HOME VIEW ======================= -->
+    <div id="view-home" class="max-w-5xl mx-auto px-4 sm:px-6">
 
-    const fileInput = document.getElementById('fileInput');
-    const uploadLabel = document.getElementById('uploadLabel');
-    const compressBtn = document.getElementById('compressBtn');
-    const presetBtns = document.querySelectorAll('.preset-btn');
-    const downloadModal = document.getElementById('downloadModal');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const resultStats = document.getElementById('resultStats');
+      <!-- FOLD 1: WORKSPACE (IMAGE & SIGNATURE COMPRESSOR) -->
+      <section class="min-h-[calc(100vh-190px)] flex flex-col justify-center py-6">
+        
+        <!-- Minimal Header -->
+        <div class="text-center max-w-2xl mx-auto mb-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            100% Client-Side • Zero Cropping • Strict KB Limit
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-white">
+            Precision Image &amp; Signature Compressor
+          </h1>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-2">
+            Compress photographs and signatures to an exact kilobyte ceiling without losing sharpness or cropping a single pixel.
+          </p>
+        </div>
 
-    let currentFile = null;
-    let compressedBlob = null;
-    let selectedPreset = { maxKB: 50, w: 350, h: 450 };
+        <!-- Mode Switcher (Image vs Signature) -->
+        <div class="flex justify-center mb-5">
+          <div class="inline-flex p-1 rounded-xl bg-[#121521] border border-white/10">
+            <button id="mode-photo" onclick="setMode('photo')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-medium bg-indigo-600 text-white shadow transition flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Image Compressor
+            </button>
+            <button id="mode-signature" onclick="setMode('signature')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+              Signature Compressor
+            </button>
+          </div>
+        </div>
 
-    // Preset Selection Handler
-    presetBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        presetBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        selectedPreset = {
-          maxKB: parseInt(btn.dataset.max),
-          w: parseInt(btn.dataset.w),
-          h: parseInt(btn.dataset.h)
-        };
-      });
-    });
+        <!-- Studio Card Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#11131C]/90 border border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xl">
+          
+          <!-- LEFT COLUMN: UPLOAD AREA + UPLOADED IMAGE + COMPRESS BUTTON RIGHT BELOW IT -->
+          <div class="lg:col-span-7 flex flex-col justify-between">
+            
+            <!-- Hidden File Input -->
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="handleFileSelect(event)" />
 
-    // File Input Listener
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files && e.target.files[0]) {
-        currentFile = e.target.files[0];
-        uploadLabel.textContent = `Selected: ${currentFile.name}`;
-        compressBtn.disabled = false;
-        compressBtn.textContent = 'Compress Image';
-      }
-    });
+            <!-- Dropzone (Shown before upload) -->
+            <div id="dropzone" onclick="document.getElementById('file-input').click()" class="cursor-pointer group border-2 border-dashed border-white/15 hover:border-indigo-500/60 rounded-xl bg-[#0C0E16] p-8 sm:p-10 flex flex-col items-center justify-center text-center transition-all min-h-[290px]">
+              <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-4 group-hover:scale-105 transition">
+                <svg class="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-white mb-1" id="dropzone-title">
+                Click or drag &amp; drop your image here
+              </p>
+              <p class="text-xs text-zinc-400 mb-5">
+                Supports JPG, PNG, WEBP • Original aspect ratio &amp; framing preserved
+              </p>
+              <span class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-medium text-white transition">
+                Browse Device Files
+              </span>
+            </div>
 
-    // Compression Engine (Runs entirely inside the browser canvas)
-    compressBtn.addEventListener('click', async () => {
-      if (!currentFile) return;
+            <!-- Uploaded Image Preview Box + Compress Button Directly Below It -->
+            <div id="uploaded-preview-area" class="hidden flex-col">
+              <!-- Image Frame -->
+              <div class="relative rounded-xl overflow-hidden border border-white/10 checkerboard flex items-center justify-center h-[240px] sm:h-[260px] p-3">
+                <img id="preview-img" src="" alt="Uploaded preview" class="max-h-full max-w-full object-contain rounded shadow-md" />
+                
+                <!-- Replace image button -->
+                <button onclick="document.getElementById('file-input').click()" class="absolute top-3 right-3 px-2.5 py-1.5 rounded-lg bg-black/75 hover:bg-black text-xs text-zinc-200 border border-white/15 backdrop-blur-md flex items-center gap-1.5 transition">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Change Image
+                </button>
+              </div>
 
-      compressBtn.disabled = true;
-      compressBtn.textContent = 'Processing...';
+              <!-- File Metadata Pill Bar -->
+              <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+                <div class="bg-[#0C0E16] border border-white/5 rounded-lg p-2">
+                  <span class="block text-[10px] uppercase tracking-wider text-zinc-500">Original Size</span>
+                  <span id="meta-original-size" class="font-mono text-xs sm:text-sm font-semibold text-white">—</span>
+                </div>
+                <div class="bg-[#0C0E16] border border-white/5 rounded-lg p-2">
+                  <span class="block text-[10px] uppercase tracking-wider text-zinc-500">Dimensions</span>
+                  <span id="meta-dimensions" class="font-mono text-xs sm:text-sm font-semibold text-white">—</span>
+                </div>
+                <div class="bg-[#0C0E16] border border-indigo-500/20 rounded-lg p-2">
+                  <span class="block text-[10px] uppercase tracking-wider text-indigo-300">Max Allowed</span>
+                  <span id="meta-target-badge" class="font-mono text-xs sm:text-sm font-semibold text-indigo-400">≤ 50 KB</span>
+                </div>
+              </div>
 
-      const img = new Image();
-      img.src = URL.createObjectURL(currentFile);
+              <!-- REQUIREMENT #1: COMPRESS BUTTON IMMEDIATELY BELOW THE UPLOADED IMAGE -->
+              <button id="compress-btn-below-image" onclick="startCompressionFlow()" class="mt-4 w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-sm sm:text-base shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2.5 transition transform active:scale-[0.99]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>Compress Image Now</span>
+                <span id="btn-target-pill" class="ml-1 px-2 py-0.5 text-xs font-mono rounded bg-black/30 text-indigo-100">≤ 50 KB</span>
+              </button>
+            </div>
 
-      img.onload = async () => {
-        const canvas = document.createElement('canvas');
-        let width = img.width;
-        let height = img.height;
+          </div>
 
-        // Resize proportionally if larger than preset dimensions
-        if (width > selectedPreset.w || height > selectedPreset.h) {
-          const ratio = Math.min(selectedPreset.w / width, selectedPreset.h / height);
-          width = Math.round(width * ratio);
-          height = Math.round(height * ratio);
-        }
+          <!-- RIGHT COLUMN: STRICT TARGET KB CONTROLS -->
+          <div class="lg:col-span-5 flex flex-col justify-between bg-[#0C0E16] border border-white/5 rounded-xl p-4 sm:p-5">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                  Strict Maximum File Size
+                </label>
+                <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                  Never Exceeds Limit
+                </span>
+              </div>
 
-        canvas.width = width;
-        canvas.height = height;
+              <!-- Exact KB Input + Slider -->
+              <div class="bg-[#121521] border border-white/10 rounded-xl p-3.5 mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-zinc-400">Target Ceiling (KB)</span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-mono text-zinc-400">≤</span>
+                    <input type="number" id="kb-number-input" min="5" max="500" value="50" oninput="syncTargetKB(this.value)" class="w-20 bg-[#090A0F] border border-white/15 focus:border-indigo-500 rounded-lg px-2.5 py-1 text-right font-mono text-sm font-semibold text-white focus:outline-none" />
+                    <span class="text-xs font-mono text-zinc-400">KB</span>
+                  </div>
+                </div>
+                <input type="range" id="kb-slider" min="5" max="200" value="50" oninput="syncTargetKB(this.value)" class="w-full" />
+                <div class="flex justify-between text-[10px] font-mono text-zinc-500 mt-1.5">
+                  <span>5 KB</span>
+                  <span>50 KB</span>
+                  <span>100 KB</span>
+                  <span>200 KB</span>
+                </div>
+              </div>
 
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, width, height);
-        ctx.drawImage(img, 0, 0, width, height);
+              <!-- Quick KB Presets -->
+              <div class="mb-4">
+                <span class="block text-xs text-zinc-400 mb-2">Quick Size Presets</span>
+                <div class="grid grid-cols-3 gap-2">
+                  <button onclick="syncTargetKB(15)" class="preset-btn py-2 px-3 rounded-lg bg-[#121521] hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 transition">≤ 15 KB</button>
+                  <button onclick="syncTargetKB(20)" class="preset-btn py-2 px-3 rounded-lg bg-[#121521] hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 transition">≤ 20 KB</button>
+                  <button onclick="syncTargetKB(30)" class="preset-btn py-2 px-3 rounded-lg bg-[#121521] hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 transition">≤ 30 KB</button>
+                  <button onclick="syncTargetKB(50)" class="preset-btn py-2 px-3 rounded-lg bg-indigo-600/20 border border-indigo-500 text-xs font-mono text-white transition">≤ 50 KB</button>
+                  <button onclick="syncTargetKB(100)" class="preset-btn py-2 px-3 rounded-lg bg-[#121521] hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 transition">≤ 100 KB</button>
+                  <button onclick="syncTargetKB(200)" class="preset-btn py-2 px-3 rounded-lg bg-[#121521] hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 transition">≤ 200 KB</button>
+                </div>
+              </div>
 
-        // Binary Search iteration to guarantee file falls strictly below maxKB
-        let minQuality = 0.05;
-        let maxQuality = 0.95;
-        let bestBlob = null;
+              <!-- Quality & Integrity Guarantees -->
+              <div class="space-y-2 border-t border-white/10 pt-3.5 text-xs text-zinc-400">
+                <div class="flex items-center justify-between">
+                  <span>Cropping Applied</span>
+                  <span class="font-mono text-emerald-400">0% (Full Original Frame)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Byte Ceiling Guarantee</span>
+                  <span id="byte-ceiling-label" class="font-mono text-zinc-200">≤ 51,200 Bytes (50.0 KB)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Clarity Preservation</span>
+                  <span class="font-mono text-indigo-300">High-Subsampling Engine</span>
+                </div>
+              </div>
+            </div>
 
-        for (let i = 0; i < 6; i++) {
-          const midQuality = (minQuality + maxQuality) / 2;
-          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', midQuality));
-          const sizeKB = blob.size / 1024;
+            <!-- Helper note at bottom of right panel -->
+            <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-zinc-500 flex items-center gap-2">
+              <svg class="w-4 h-4 text-indigo-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span>All processing happens locally inside your browser. Your files are never uploaded to any server.</span>
+            </div>
+          </div>
 
-          if (sizeKB <= selectedPreset.maxKB) {
-            bestBlob = blob;
-            minQuality = midQuality; // Try higher quality
-          } else {
-            maxQuality = midQuality; // Lower quality to meet limit
-          }
-        }
+        </div>
+      </section>
 
-        if (!bestBlob) {
-          bestBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.1));
-        }
+      <!-- FOLD 2: FAQ SECTION (COMPACT SECOND SCROLL PAGE) -->
+      <section id="faq-section" class="py-12 border-t border-white/10">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-8">
+            <span class="text-xs font-mono uppercase tracking-widest text-indigo-400">Support &amp; Details</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Frequently Asked Questions</h2>
+          </div>
 
-        compressedBlob = bestBlob;
-        const finalKB = (compressedBlob.size / 1024).toFixed(1);
-        resultStats.textContent = `Original: ${(currentFile.size / 1024).toFixed(1)} KB ➔ Compressed: ${finalKB} KB (Target: ≤ ${selectedPreset.maxKB} KB)`;
-
-        compressBtn.disabled = false;
-        compressBtn.textContent = 'Compress Image';
-        showDownloadModal();
-      };
-    });
-
-    // Modal & 5-Second Countdown
-    function showDownloadModal() {
-      downloadModal.style.display = 'flex';
-      let countdown = 5;
-      downloadBtn.disabled = true;
-      downloadBtn.textContent = `Please wait (${countdown}s)...`;
-
-      const timer = setInterval(() => {
-        countdown--;
-        if (countdown > 0) {
-          downloadBtn.textContent = `Please wait (${countdown}s)...`;
-        } else {
-          clearInterval(timer);
-          downloadBtn.disabled = false;
-          downloadBtn.textContent = '⬇️ Download Compressed Document';
-        }
-      }, 1000);
-    }
-
-    function closeModal() {
-      downloadModal.style.display = 'none';
-    }
-
-    // Download & Ad Trigger
-    downloadBtn.addEventListener('click', () => {
-      if (!compressedBlob) return;
-
-      // 1. Download file directly
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(compressedBlob);
-      a.download = `ExamResized_${Date.now()}.jpg`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-
-      // 2. Open Monetag Ad link in background/new tab
-      if (MONETAG_SMARTLINK && !MONETAG_SMARTLINK.includes("your-smartlink-here")) {
-        window.open(MONETAG_SMARTLINK, '_blank');
-      }
-
-      closeModal();
-    });
-  </script>
-</body>
-</html>
+          <div class="space-y-3">
+            <!-- FAQ 1 -->
+            <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
+              <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
+                <span>Will the compressed file ever exceed my chosen KB size (e.g., 50.1 KB when set to 50 KB)?</span>
+                <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+      
