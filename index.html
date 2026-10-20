@@ -89,7 +89,7 @@
 <body class="studio-glow min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
   <!-- ===================================================================== -->
-  <!-- AD #1: STICKY TOP BANNER AD (WIRED TO MONETAG DIRECT LINK 12076242)   -->
+  <!-- AD #1: STICKY TOP BANNER AD (STRICTLY CONFINED TO TOP BAR)             -->
   <!-- ===================================================================== -->
   <div id="sticky-top-ad" class="fixed top-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-b border-white/10 flex items-center justify-center px-4">
     <a href="https://uplcm.com/4/12076242" target="_blank" rel="noopener noreferrer" class="w-full max-w-[728px] h-[48px] rounded-xl bg-gradient-to-r from-[#121521] via-[#161A2B] to-[#121521] hover:border-indigo-500/40 border border-white/10 flex items-center justify-between px-3.5 sm:px-5 shadow-inner transition group">
@@ -135,14 +135,13 @@
   </header>
 
   <!-- ===================================================================== -->
-  <!-- MAIN CONTENT AREA (2-PAGE SCROLL FOR HOME VIEW)                       -->
+  <!-- MAIN CONTENT AREA                                                     -->
   <!-- ===================================================================== -->
   <main class="flex-grow">
 
     <!-- ======================= HOME VIEW ======================= -->
     <div id="view-home" class="max-w-5xl mx-auto px-4 sm:px-6">
 
-      <!-- FOLD 1: WORKSPACE (IMAGE & SIGNATURE COMPRESSOR) -->
       <section class="min-h-[calc(100vh-190px)] flex flex-col justify-center py-6">
         
         <div class="text-center max-w-2xl mx-auto mb-6">
@@ -179,7 +178,7 @@
         <!-- Studio Card Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#11131C]/90 border border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xl">
           
-          <!-- LEFT COLUMN: UPLOAD AREA + UPLOADED IMAGE + COMPRESS BUTTON BELOW IT -->
+          <!-- LEFT COLUMN -->
           <div class="lg:col-span-7 flex flex-col justify-between">
             
             <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="handleFileSelect(event)" />
@@ -202,7 +201,7 @@
               </span>
             </div>
 
-            <!-- Uploaded Image Preview Box + Compress Button Directly Below It -->
+            <!-- Uploaded Preview Box + Compress Button Directly Below It -->
             <div id="uploaded-preview-area" class="hidden flex-col">
               <div class="relative rounded-xl overflow-hidden border border-white/10 checkerboard flex items-center justify-center h-[240px] sm:h-[260px] p-3">
                 <img id="preview-img" src="" alt="Uploaded preview" class="max-h-full max-w-full object-contain rounded shadow-md" />
@@ -215,7 +214,7 @@
                 </button>
               </div>
 
-              <!-- File Metadata Pill Bar -->
+              <!-- Metadata Bar -->
               <div class="grid grid-cols-3 gap-2 mt-3 text-center">
                 <div class="bg-[#0C0E16] border border-white/5 rounded-lg p-2">
                   <span class="block text-[10px] uppercase tracking-wider text-zinc-500">Original Size</span>
@@ -231,7 +230,7 @@
                 </div>
               </div>
 
-              <!-- COMPRESS BUTTON IMMEDIATELY BELOW THE UPLOADED IMAGE -->
+              <!-- COMPRESS BUTTON -->
               <button id="compress-btn-below-image" onclick="startCompressionFlow()" class="mt-4 w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-sm sm:text-base shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2.5 transition transform active:scale-[0.99]">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -243,7 +242,7 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: STRICT TARGET KB CONTROLS -->
+          <!-- RIGHT COLUMN: TARGET KB CONTROLS -->
           <div class="lg:col-span-5 flex flex-col justify-between bg-[#0C0E16] border border-white/5 rounded-xl p-4 sm:p-5">
             <div>
               <div class="flex items-center justify-between mb-3">
@@ -273,7 +272,7 @@
                 </div>
               </div>
 
-              <!-- Quick KB Presets -->
+              <!-- Quick Presets -->
               <div class="mb-4">
                 <span class="block text-xs text-zinc-400 mb-2">Quick Size Presets</span>
                 <div class="grid grid-cols-3 gap-2">
@@ -286,7 +285,6 @@
                 </div>
               </div>
 
-              <!-- Quality & Integrity Guarantees -->
               <div class="space-y-2 border-t border-white/10 pt-3.5 text-xs text-zinc-400">
                 <div class="flex items-center justify-between">
                   <span>Cropping Applied</span>
@@ -325,41 +323,31 @@
           <div class="space-y-3">
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
-                <span>Will the compressed file ever exceed my chosen KB size (e.g., 50.1 KB when set to 50 KB)?</span>
+                <span>Will the compressed file ever exceed my chosen KB size?</span>
                 <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p class="text-xs sm:text-sm text-zinc-400 mt-3 leading-relaxed">
-                No. If you select 50 KB, our binary-search byte engine locks a hard upper ceiling at 50.0 KB (51,200 bytes). It verifies the exact output byte count before finishing so the result is always strictly at or below your chosen KB size—never 50.1 KB.
+                No. Our binary-search byte engine locks a hard upper ceiling at your exact target KB so the result is always strictly at or below your chosen limit.
               </p>
             </details>
 
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
-                <span>How does this tool prevent image quality drop and cropping?</span>
+                <span>Does this tool crop my image or reduce clarity?</span>
                 <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p class="text-xs sm:text-sm text-zinc-400 mt-3 leading-relaxed">
-                Zero cropping is ever performed—your full image frame and aspect ratio remain 100% intact. To prevent blurriness or compression blocks, our engine enforces a high JPEG quality floor (74%–98%) and uses multi-step high-smoothing canvas rendering so facial features and ink strokes stay razor-sharp.
+                Zero cropping is ever performed. Your full image frame and aspect ratio remain 100% intact with high-clarity canvas rendering.
               </p>
             </details>
 
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
-                <span>How does the Signature Compressor mode differ from the Image mode?</span>
+                <span>Are my photos stored on any server?</span>
                 <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p class="text-xs sm:text-sm text-zinc-400 mt-3 leading-relaxed">
-                Signature mode flattens transparent PNG backgrounds onto a crisp pure-white canvas and preserves high-contrast ink strokes, making it effortless to hit tight 10 KB – 20 KB limits without blurry handwriting.
-              </p>
-            </details>
-
-            <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
-              <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
-                <span>Are my photos or signatures stored on any server?</span>
-                <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-3 leading-relaxed">
-                Never. Every calculation uses your device's built-in HTML5 Canvas and Web APIs. Your images never leave your phone or computer.
+                Never. Every calculation uses your device's browser memory locally.
               </p>
             </details>
           </div>
@@ -383,24 +371,13 @@
 
         <div class="space-y-5 text-xs sm:text-sm text-zinc-300 leading-relaxed">
           <p>
-            <strong>1. Zero Server Uploads (100% Local Processing):</strong>
-            OptiScale Studio processes all images and signatures locally inside your web browser using client-side HTML5 Canvas APIs. We do not upload, transmit, store, or view your photographs or signatures on any external server.
+            <strong>1. Zero Server Uploads:</strong> All image processing occurs locally inside your web browser using HTML5 Canvas APIs.
           </p>
           <p>
-            <strong>2. No Account or Personal Data Required:</strong>
-            You can use all features of this website without creating an account, logging in, or submitting personal identification details.
+            <strong>2. No Account Required:</strong> Use all features without logging in or submitting personal data.
           </p>
           <p>
-            <strong>3. Third-Party Advertising &amp; Cookies:</strong>
-            To keep this tool free, we display advertisements via Monetag and third-party ad networks. These networks may use cookies, web beacons, or non-identifying scripts to serve relevant advertisements.
-          </p>
-          <p>
-            <strong>4. Temporary Browser Memory:</strong>
-            Uploaded files exist only in your device's volatile browser memory (RAM) while the tab is open and are immediately cleared as soon as you refresh or close the page.
-          </p>
-          <p>
-            <strong>5. Policy Updates:</strong>
-            We may update this Privacy Policy periodically to reflect technical or regulatory changes. Continued use of the website constitutes acceptance of these terms.
+            <strong>3. Advertising:</strong> We display banner and pop-up sponsor links to keep this tool free.
           </p>
         </div>
       </div>
@@ -427,7 +404,7 @@
   </footer>
 
   <!-- ===================================================================== -->
-  <!-- AD #2: STICKY BOTTOM BANNER AD (WIRED TO MONETAG DIRECT LINK 12076242)-->
+  <!-- AD #2: STICKY BOTTOM BANNER AD (STRICTLY CONFINED TO BOTTOM BAR)      -->
   <!-- ===================================================================== -->
   <div id="sticky-bottom-ad" class="fixed bottom-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-t border-white/10 flex items-center justify-center px-4">
     <a href="https://uplcm.com/4/12076242" target="_blank" rel="noopener noreferrer" class="w-full max-w-[728px] h-[48px] rounded-xl bg-gradient-to-r from-[#121521] via-[#151D28] to-[#121521] hover:border-emerald-500/40 border border-white/10 flex items-center justify-between px-3.5 sm:px-5 shadow-inner transition group">
@@ -442,7 +419,7 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: UPLOADING PROGRESS POP-UP (5% -> 24% -> 50% -> 78% -> 100%)  -->
+  <!-- MODAL 1: UPLOADING PROGRESS POP-UP                                   -->
   <!-- ===================================================================== -->
   <div id="upload-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="w-full max-w-sm bg-[#121521] border border-white/15 rounded-2xl p-6 text-center shadow-2xl">
@@ -463,12 +440,12 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 2: 5-SEC NON-SKIPPABLE MINI POP-UP AD WINDOW + DOWNLOAD + CROSS -->
+  <!-- MODAL 2: 5-SEC MINI POP-UP AD WINDOW (AD #3 CONFINED INSIDE BOX)      -->
   <!-- ===================================================================== -->
   <div id="compress-ad-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
     <div class="w-full max-w-md bg-[#121521] border border-white/15 rounded-2xl p-5 sm:p-6 shadow-2xl relative">
       
-      <!-- Top Status Header + Cross Button (Cross button appears after 5 seconds) -->
+      <!-- Top Status Header + Cross Button -->
       <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
         <div class="flex items-center gap-2">
           <span id="modal-spinner" class="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-ping"></span>
@@ -481,7 +458,6 @@
           <span id="countdown-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
             5s
           </span>
-          <!-- CROSS (X) BUTTON APPEARS AFTER 5 SEC ALONGSIDE DOWNLOAD BUTTON -->
           <button id="popup-top-cross-btn" onclick="closeCompressModal()" title="Close mini window" class="hidden w-7 h-7 rounded-full bg-white/10 hover:bg-rose-500/20 hover:text-rose-300 border border-white/15 text-zinc-300 items-center justify-center transition">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -490,7 +466,7 @@
         </div>
       </div>
 
-      <!-- AD #3: 5-SECOND POP-UP AD CONTAINER (LOADS DIRECT LINK 12076242) -->
+      <!-- AD #3: 5-SECOND POP-UP AD CONTAINER (CONFINED INSIDE THIS 220px BOX) -->
       <div id="popup-ad-slot" class="w-full h-[220px] bg-[#0B0D14] border border-white/15 rounded-xl overflow-hidden flex flex-col items-center justify-center mb-4 relative">
         <!-- Populated dynamically when Compress is clicked -->
       </div>
@@ -507,7 +483,7 @@
         </div>
       </div>
 
-      <!-- Download Button (Visible from start, disabled for 5 sec, enabled after 5 sec) -->
+      <!-- Download Button -->
       <button id="popup-download-btn" disabled onclick="triggerFinalDownload()" class="w-full py-3.5 px-5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition cursor-not-allowed bg-white/10 text-zinc-400 border border-white/10">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -515,7 +491,7 @@
         <span id="popup-download-label">Please wait 5 sec to Download...</span>
       </button>
 
-      <!-- Secondary Close & Compress New File Button (Appears after 5 sec) -->
+      <!-- Secondary Close & Compress New File Button -->
       <button id="popup-close-btn" onclick="closeCompressModal()" class="hidden mt-3 w-full py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-zinc-300 hover:text-white transition items-center justify-center gap-1.5">
         <span>✕ Close Window &amp; Compress Another File</span>
       </button>
@@ -523,33 +499,16 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- APPLICATION LOGIC & MONETAG AD CONTROLLER                             -->
+  <!-- APPLICATION LOGIC & AD SLOT CONTROLLER                                -->
   <!-- ===================================================================== -->
   <script>
-    // Your exact Monetag Direct Link (Zone 12076242)
     const MONETAG_DIRECT_LINK = "https://uplcm.com/4/12076242";
 
-    // Dynamically trigger your Monetag Vignette Banner (Zone 12076227)
-    function triggerMonetagVignette() {
-      try {
-        (function(s){
-          s.dataset.zone='12076227';
-          s.src='https://n6wxm.com/vignette.min.js';
-        })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-      } catch (e) {
-        console.warn('Ad script blocked or failed to load:', e);
-      }
-    }
-
-    // Populate the 5-Second Mini Pop-Up Ad Container with Direct Link 12076242 & fire Vignette
+    // Loads Ad #3 strictly inside the 220px box when Compress is clicked
     function loadPopupAdSlot() {
       const slot = document.getElementById('popup-ad-slot');
       if (!slot) return;
 
-      // Refresh your Monetag Vignette zone (12076227) when user clicks Compress
-      triggerMonetagVignette();
-
-      // Embed your Monetag Direct Link inside the 5-second pop-up container
       slot.innerHTML = `
         <iframe 
           src="${MONETAG_DIRECT_LINK}" 
@@ -753,7 +712,7 @@
       return canvas;
     }
 
-    // HD Zero-Crop, Zero-Quality-Drop Strict Byte Ceiling Engine
+    // HD Zero-Crop Strict Byte Ceiling Engine
     async function compressImageStrictlyUnderCeiling(img, maxKB) {
       const strictMaxBytes = Math.max(1024, Math.floor(maxKB * 1024) - 96);
       const sweetSpotMinBytes = Math.floor(strictMaxBytes * 0.90);
@@ -839,7 +798,7 @@
       modal.classList.remove('hidden');
       modal.classList.add('flex');
 
-      // Load Ad #3 inside the mini window + trigger Monetag Vignette
+      // Load Ad #3 strictly inside the mini window box
       loadPopupAdSlot();
 
       closeBtn.classList.add('hidden');
@@ -943,12 +902,6 @@
       modal.classList.remove('flex');
     }
   </script>
-
-  <!-- ===================================================================== -->
-  <!-- YOUR EXACT MONETAG SCRIPTS (VIGNETTE 12076227 & IN-PAGE PUSH 12076237)-->
-  <!-- ===================================================================== -->
-  <script>(function(s){s.dataset.zone='12076227',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-  <script>(function(s){s.dataset.zone='12076237',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
