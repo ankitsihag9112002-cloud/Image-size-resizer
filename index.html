@@ -46,15 +46,12 @@
       color: #F3F4F6;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
-      /* Space for top and bottom sticky ad bars */
       padding-top: 66px;
       padding-bottom: 66px;
     }
-    /* Subtle radial studio glow */
     .studio-glow {
       background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.14), transparent 55%);
     }
-    /* Checkered transparency backdrop for image preview */
     .checkerboard {
       background-image: 
         linear-gradient(45deg, #181B28 25%, transparent 25%), 
@@ -65,7 +62,6 @@
       background-position: 0 0, 0 8px, 8px -8px, -8px 0;
       background-color: #10121C;
     }
-    /* Custom range slider */
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
@@ -93,13 +89,18 @@
 <body class="studio-glow min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
   <!-- ===================================================================== -->
-  <!-- AD #1: STICKY TOP BANNER AD CONTAINER (CLEAN SPACE FOR YOUR AD CODE)  -->
+  <!-- AD #1: STICKY TOP BANNER AD (WIRED TO MONETAG DIRECT LINK 12076242)   -->
   <!-- ===================================================================== -->
   <div id="sticky-top-ad" class="fixed top-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-b border-white/10 flex items-center justify-center px-4">
-    <div class="w-full max-w-[728px] h-[50px] border border-dashed border-white/15 rounded-lg flex items-center justify-center text-[11px] font-mono uppercase tracking-widest text-zinc-500">
-      <!-- PASTE TOP STICKY BANNER AD SCRIPT HERE -->
-      <span>Ad Space #1 (Top Sticky Banner)</span>
-    </div>
+    <a href="https://uplcm.com/4/12076242" target="_blank" rel="noopener noreferrer" class="w-full max-w-[728px] h-[48px] rounded-xl bg-gradient-to-r from-[#121521] via-[#161A2B] to-[#121521] hover:border-indigo-500/40 border border-white/10 flex items-center justify-between px-3.5 sm:px-5 shadow-inner transition group">
+      <div class="flex items-center gap-2.5 overflow-hidden">
+        <span class="px-1.5 py-0.5 text-[9px] font-mono uppercase tracking-wider bg-indigo-500/20 text-indigo-300 rounded border border-indigo-500/30 shrink-0">Sponsored</span>
+        <span class="text-xs sm:text-sm font-medium text-zinc-200 group-hover:text-white truncate transition">High-Speed Cloud Utilities &amp; Document Tools — Click to View</span>
+      </div>
+      <span class="px-3 py-1.5 rounded-lg bg-indigo-600 group-hover:bg-indigo-500 text-white text-xs font-semibold transition shrink-0 shadow-sm">
+        Open Offer →
+      </span>
+    </a>
   </div>
 
   <!-- ===================================================================== -->
@@ -107,7 +108,6 @@
   <!-- ===================================================================== -->
   <header class="w-full border-b border-white/[0.07] bg-[#090A0F]/80 backdrop-blur-xl sticky top-[60px] z-30">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-      <!-- Brand -->
       <button onclick="switchView('home')" class="flex items-center gap-2.5 text-left group focus:outline-none">
         <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
           <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -120,7 +120,6 @@
         </div>
       </button>
 
-      <!-- Navigation Links -->
       <nav class="flex items-center gap-1 sm:gap-2">
         <button onclick="switchView('home')" id="nav-home" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-white bg-white/10 transition">
           Compressor
@@ -136,7 +135,7 @@
   </header>
 
   <!-- ===================================================================== -->
-  <!-- MAIN CONTENT AREA (STRICTLY 2-PAGE SCROLL FEEL FOR HOME VIEW)         -->
+  <!-- MAIN CONTENT AREA (2-PAGE SCROLL FOR HOME VIEW)                       -->
   <!-- ===================================================================== -->
   <main class="flex-grow">
 
@@ -146,7 +145,6 @@
       <!-- FOLD 1: WORKSPACE (IMAGE & SIGNATURE COMPRESSOR) -->
       <section class="min-h-[calc(100vh-190px)] flex flex-col justify-center py-6">
         
-        <!-- Minimal Header -->
         <div class="text-center max-w-2xl mx-auto mb-6">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-3">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -160,7 +158,7 @@
           </p>
         </div>
 
-        <!-- Mode Switcher (Image vs Signature) -->
+        <!-- Mode Switcher -->
         <div class="flex justify-center mb-5">
           <div class="inline-flex p-1 rounded-xl bg-[#121521] border border-white/10">
             <button id="mode-photo" onclick="setMode('photo')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-medium bg-indigo-600 text-white shadow transition flex items-center gap-2">
@@ -181,13 +179,12 @@
         <!-- Studio Card Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#11131C]/90 border border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xl">
           
-          <!-- LEFT COLUMN: UPLOAD AREA + UPLOADED IMAGE + COMPRESS BUTTON RIGHT BELOW IT -->
+          <!-- LEFT COLUMN: UPLOAD AREA + UPLOADED IMAGE + COMPRESS BUTTON BELOW IT -->
           <div class="lg:col-span-7 flex flex-col justify-between">
             
-            <!-- Hidden File Input -->
             <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="handleFileSelect(event)" />
 
-            <!-- Dropzone (Shown before upload) -->
+            <!-- Dropzone -->
             <div id="dropzone" onclick="document.getElementById('file-input').click()" class="cursor-pointer group border-2 border-dashed border-white/15 hover:border-indigo-500/60 rounded-xl bg-[#0C0E16] p-8 sm:p-10 flex flex-col items-center justify-center text-center transition-all min-h-[290px]">
               <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-4 group-hover:scale-105 transition">
                 <svg class="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
@@ -207,11 +204,9 @@
 
             <!-- Uploaded Image Preview Box + Compress Button Directly Below It -->
             <div id="uploaded-preview-area" class="hidden flex-col">
-              <!-- Image Frame -->
               <div class="relative rounded-xl overflow-hidden border border-white/10 checkerboard flex items-center justify-center h-[240px] sm:h-[260px] p-3">
                 <img id="preview-img" src="" alt="Uploaded preview" class="max-h-full max-w-full object-contain rounded shadow-md" />
                 
-                <!-- Replace image button -->
                 <button onclick="document.getElementById('file-input').click()" class="absolute top-3 right-3 px-2.5 py-1.5 rounded-lg bg-black/75 hover:bg-black text-xs text-zinc-200 border border-white/15 backdrop-blur-md flex items-center gap-1.5 transition">
                   <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -260,7 +255,6 @@
                 </span>
               </div>
 
-              <!-- Exact KB Input + Slider -->
               <div class="bg-[#121521] border border-white/10 rounded-xl p-3.5 mb-4">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs text-zinc-400">Target Ceiling (KB)</span>
@@ -309,7 +303,6 @@
               </div>
             </div>
 
-            <!-- Helper note at bottom of right panel -->
             <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-zinc-500 flex items-center gap-2">
               <svg class="w-4 h-4 text-indigo-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -321,7 +314,7 @@
         </div>
       </section>
 
-      <!-- FOLD 2: FAQ SECTION (COMPACT SECOND SCROLL PAGE) -->
+      <!-- FOLD 2: FAQ SECTION -->
       <section id="faq-section" class="py-12 border-t border-white/10">
         <div class="max-w-3xl mx-auto">
           <div class="text-center mb-8">
@@ -330,7 +323,6 @@
           </div>
 
           <div class="space-y-3">
-            <!-- FAQ 1 -->
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
                 <span>Will the compressed file ever exceed my chosen KB size (e.g., 50.1 KB when set to 50 KB)?</span>
@@ -341,18 +333,16 @@
               </p>
             </details>
 
-            <!-- FAQ 2 -->
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
                 <span>How does this tool prevent image quality drop and cropping?</span>
                 <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p class="text-xs sm:text-sm text-zinc-400 mt-3 leading-relaxed">
-                Zero cropping is ever performed—your full image frame and aspect ratio remain 100% intact. To prevent blurriness or compression blocks, our engine enforces a high JPEG quality floor (72%–98%) and uses multi-step high-smoothing canvas rendering so facial features and ink strokes stay razor-sharp.
+                Zero cropping is ever performed—your full image frame and aspect ratio remain 100% intact. To prevent blurriness or compression blocks, our engine enforces a high JPEG quality floor (74%–98%) and uses multi-step high-smoothing canvas rendering so facial features and ink strokes stay razor-sharp.
               </p>
             </details>
 
-            <!-- FAQ 3 -->
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
                 <span>How does the Signature Compressor mode differ from the Image mode?</span>
@@ -363,7 +353,6 @@
               </p>
             </details>
 
-            <!-- FAQ 4 -->
             <details class="group bg-[#11131C] border border-white/10 rounded-xl p-4 cursor-pointer">
               <summary class="flex items-center justify-between font-medium text-sm text-white list-none">
                 <span>Are my photos or signatures stored on any server?</span>
@@ -403,7 +392,7 @@
           </p>
           <p>
             <strong>3. Third-Party Advertising &amp; Cookies:</strong>
-            To keep this tool free, we display advertisements in designated banner and pop-up slots. Third-party ad networks may use cookies or web beacons to serve relevant advertisements based on your visits to this and other websites.
+            To keep this tool free, we display advertisements via Monetag and third-party ad networks. These networks may use cookies, web beacons, or non-identifying scripts to serve relevant advertisements.
           </p>
           <p>
             <strong>4. Temporary Browser Memory:</strong>
@@ -438,13 +427,18 @@
   </footer>
 
   <!-- ===================================================================== -->
-  <!-- AD #2: STICKY BOTTOM BANNER AD CONTAINER (CLEAN SPACE FOR YOUR CODE)  -->
+  <!-- AD #2: STICKY BOTTOM BANNER AD (WIRED TO MONETAG DIRECT LINK 12076242)-->
   <!-- ===================================================================== -->
   <div id="sticky-bottom-ad" class="fixed bottom-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-t border-white/10 flex items-center justify-center px-4">
-    <div class="w-full max-w-[728px] h-[50px] border border-dashed border-white/15 rounded-lg flex items-center justify-center text-[11px] font-mono uppercase tracking-widest text-zinc-500">
-      <!-- PASTE BOTTOM STICKY BANNER AD SCRIPT HERE -->
-      <span>Ad Space #2 (Bottom Sticky Banner)</span>
-    </div>
+    <a href="https://uplcm.com/4/12076242" target="_blank" rel="noopener noreferrer" class="w-full max-w-[728px] h-[48px] rounded-xl bg-gradient-to-r from-[#121521] via-[#151D28] to-[#121521] hover:border-emerald-500/40 border border-white/10 flex items-center justify-between px-3.5 sm:px-5 shadow-inner transition group">
+      <div class="flex items-center gap-2.5 overflow-hidden">
+        <span class="px-1.5 py-0.5 text-[9px] font-mono uppercase tracking-wider bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30 shrink-0">Featured</span>
+        <span class="text-xs sm:text-sm font-medium text-zinc-200 group-hover:text-white truncate transition">Instant PDF &amp; Image Optimization Partner — Explore Now</span>
+      </div>
+      <span class="px-3 py-1.5 rounded-lg bg-emerald-500 group-hover:bg-emerald-400 text-black text-xs font-semibold transition shrink-0 shadow-sm">
+        Visit Site →
+      </span>
+    </a>
   </div>
 
   <!-- ===================================================================== -->
@@ -458,7 +452,6 @@
       <h3 class="text-base font-semibold text-white">Uploading Your Image...</h3>
       <p class="text-xs text-zinc-400 mt-1 mb-4">Preparing lossless pixel buffer in browser memory</p>
       
-      <!-- Progress Bar -->
       <div class="w-full h-2.5 bg-black/60 rounded-full overflow-hidden border border-white/10 mb-2">
         <div id="upload-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-150" style="width: 5%"></div>
       </div>
@@ -488,7 +481,7 @@
           <span id="countdown-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
             5s
           </span>
-          <!-- REQUIREMENT #3: CROSS (X) BUTTON APPEARS AFTER 5 SEC ALONGSIDE DOWNLOAD BUTTON -->
+          <!-- CROSS (X) BUTTON APPEARS AFTER 5 SEC ALONGSIDE DOWNLOAD BUTTON -->
           <button id="popup-top-cross-btn" onclick="closeCompressModal()" title="Close mini window" class="hidden w-7 h-7 rounded-full bg-white/10 hover:bg-rose-500/20 hover:text-rose-300 border border-white/15 text-zinc-300 items-center justify-center transition">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -497,15 +490,12 @@
         </div>
       </div>
 
-      <!-- AD #3: 5-SECOND POP-UP AD CONTAINER (CLEAN SPACE FOR YOUR CODE) -->
-      <div class="w-full h-[220px] bg-[#0B0D14] border border-dashed border-white/15 rounded-xl flex items-center justify-center mb-4 p-3">
-        <!-- PASTE 5-SECOND POP-UP AD SCRIPT HERE -->
-        <span class="text-xs font-mono uppercase tracking-widest text-zinc-500 text-center">
-          Ad Space #3 (5-Sec Non-Skippable Pop-Up Ad)
-        </span>
+      <!-- AD #3: 5-SECOND POP-UP AD CONTAINER (LOADS DIRECT LINK 12076242) -->
+      <div id="popup-ad-slot" class="w-full h-[220px] bg-[#0B0D14] border border-white/15 rounded-xl overflow-hidden flex flex-col items-center justify-center mb-4 relative">
+        <!-- Populated dynamically when Compress is clicked -->
       </div>
 
-      <!-- Compressed Result Summary (Reveals exact final KB <= Target KB) -->
+      <!-- Compressed Result Summary -->
       <div class="bg-[#0B0D14] border border-white/10 rounded-xl p-3 mb-4 flex items-center justify-between text-xs">
         <div>
           <span class="text-zinc-400 block">Final Compressed Size</span>
@@ -517,7 +507,7 @@
         </div>
       </div>
 
-      <!-- Download Button (Visible from start, disabled for 5 sec, enabled after 5 sec, stays in same tab) -->
+      <!-- Download Button (Visible from start, disabled for 5 sec, enabled after 5 sec) -->
       <button id="popup-download-btn" disabled onclick="triggerFinalDownload()" class="w-full py-3.5 px-5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition cursor-not-allowed bg-white/10 text-zinc-400 border border-white/10">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -533,10 +523,49 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- APPLICATION LOGIC & HD STRICT BYTE-CEILING COMPRESSION ENGINE         -->
+  <!-- APPLICATION LOGIC & MONETAG AD CONTROLLER                             -->
   <!-- ===================================================================== -->
   <script>
-    let currentMode = 'photo'; // 'photo' | 'signature'
+    // Your exact Monetag Direct Link (Zone 12076242)
+    const MONETAG_DIRECT_LINK = "https://uplcm.com/4/12076242";
+
+    // Dynamically trigger your Monetag Vignette Banner (Zone 12076227)
+    function triggerMonetagVignette() {
+      try {
+        (function(s){
+          s.dataset.zone='12076227';
+          s.src='https://n6wxm.com/vignette.min.js';
+        })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+      } catch (e) {
+        console.warn('Ad script blocked or failed to load:', e);
+      }
+    }
+
+    // Populate the 5-Second Mini Pop-Up Ad Container with Direct Link 12076242 & fire Vignette
+    function loadPopupAdSlot() {
+      const slot = document.getElementById('popup-ad-slot');
+      if (!slot) return;
+
+      // Refresh your Monetag Vignette zone (12076227) when user clicks Compress
+      triggerMonetagVignette();
+
+      // Embed your Monetag Direct Link inside the 5-second pop-up container
+      slot.innerHTML = `
+        <iframe 
+          src="${MONETAG_DIRECT_LINK}" 
+          class="w-full h-full border-0 bg-[#0B0D14]" 
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="${MONETAG_DIRECT_LINK}" target="_blank" rel="noopener noreferrer" 
+           class="absolute bottom-2.5 right-2.5 px-3 py-1 rounded-lg bg-indigo-600/95 hover:bg-indigo-500 text-[11px] font-semibold text-white border border-white/20 shadow-lg backdrop-blur-md transition flex items-center gap-1">
+          <span>Sponsored Offer</span>
+          <span>↗</span>
+        </a>
+      `;
+    }
+
+    let currentMode = 'photo';
     let targetKB = 50;
     let uploadedFile = null;
     let originalImage = null;
@@ -545,7 +574,6 @@
     let isTimerFinished = false;
     let isCompressionFinished = false;
 
-    // Switch between Compressor Home and Privacy Policy
     function switchView(view) {
       const homeEl = document.getElementById('view-home');
       const privacyEl = document.getElementById('view-privacy');
@@ -573,7 +601,6 @@
       }, 50);
     }
 
-    // Switch between Image Mode and Signature Mode
     function setMode(mode) {
       currentMode = mode;
       const photoBtn = document.getElementById('mode-photo');
@@ -593,7 +620,6 @@
       }
     }
 
-    // Sync Target KB across Slider, Number Input, Presets, and Compress Button
     function syncTargetKB(val) {
       let parsed = parseFloat(val);
       if (isNaN(parsed) || parsed < 5) parsed = 5;
@@ -608,7 +634,6 @@
       const maxBytes = Math.floor(targetKB * 1024);
       document.getElementById('byte-ceiling-label').textContent = `≤ ${maxBytes.toLocaleString()} Bytes (${targetKB.toFixed(1)} KB)`;
 
-      // Highlight matching preset button
       document.querySelectorAll('.preset-btn').forEach(btn => {
         if (btn.textContent.trim() === `≤ ${targetKB} KB`) {
           btn.className = 'preset-btn py-2 px-3 rounded-lg bg-indigo-600/20 border border-indigo-500 text-xs font-mono text-white transition';
@@ -618,7 +643,6 @@
       });
     }
 
-    // Drag and Drop listeners
     const dropzone = document.getElementById('dropzone');
     dropzone.addEventListener('dragover', (e) => {
       e.preventDefault();
@@ -640,11 +664,9 @@
       if (file) {
         processUploadedFile(file);
       }
-      // Reset input value so selecting the same file again still triggers onchange
       event.target.value = '';
     }
 
-    // Step-by-step Upload Progress Pop-up (5% -> 24% -> 50% -> 78% -> 100%)
     function processUploadedFile(file) {
       uploadedFile = file;
       const reader = new FileReader();
@@ -693,7 +715,6 @@
       }, 140);
     }
 
-    // Show the uploaded image with the Compress Button directly underneath it
     function displayUploadedImageAndCompressButton(dataURL, fileSize, width, height) {
       document.getElementById('dropzone').classList.add('hidden');
       const previewArea = document.getElementById('uploaded-preview-area');
@@ -705,21 +726,18 @@
       document.getElementById('meta-dimensions').textContent = `${width} × ${height}`;
     }
 
-    // Format bytes so it never rounds UP past the actual ceiling
     function formatExactKB(bytes) {
       if (!bytes || bytes <= 0) return '0.00 KB';
       const kb = Math.floor((bytes / 1024) * 100) / 100;
       return `${kb.toFixed(2)} KB`;
     }
 
-    // Helper: Convert Canvas to Blob safely
     function canvasToBlob(canvas, quality) {
       return new Promise((resolve) => {
         canvas.toBlob((blob) => resolve(blob), 'image/jpeg', quality);
       });
     }
 
-    // High-definition step-down renderer (avoids single-pass aliasing blur)
     function renderCrispCanvas(sourceImg, targetW, targetH) {
       const canvas = document.createElement('canvas');
       canvas.width = targetW;
@@ -731,27 +749,18 @@
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      // Draw 100% of original image frame (ZERO CROPPING)
       ctx.drawImage(sourceImg, 0, 0, targetW, targetH);
       return canvas;
     }
 
-    /**
-     * FIX #1: ZERO QUALITY DROP + STRICT BYTE-CEILING COMPRESSION ENGINE
-     * - If the original file is ALREADY <= targetKB and is a JPEG, or fits at 98% quality, keep 100% native clarity.
-     * - Locks JPEG quality floor at 0.72 (72%) so blocky/blurry JPEG compression artifacts NEVER appear.
-     * - Uses fine 5% dimension micro-steps (0.95) with high-quality smoothing only if needed to fit the strict byte limit.
-     * - Guarantees output bytes <= targetKB * 1024 (never 50.1 KB when 50 KB is chosen).
-     */
+    // HD Zero-Crop, Zero-Quality-Drop Strict Byte Ceiling Engine
     async function compressImageStrictlyUnderCeiling(img, maxKB) {
       const strictMaxBytes = Math.max(1024, Math.floor(maxKB * 1024) - 96);
       const sweetSpotMinBytes = Math.floor(strictMaxBytes * 0.90);
 
-      // If original uploaded file is already under the strict byte ceiling and is a valid image, check if native 0.98 canvas fits
       let origW = img.width;
       let origH = img.height;
 
-      // Cap extreme 12MP+ camera dimensions gently to 2000px max edge first so quality stays ultra-high (0.85+)
       let scale = 1.0;
       const maxEdge = Math.max(origW, origH);
       if (maxEdge > 2000 && maxKB <= 100) {
@@ -760,25 +769,21 @@
 
       let bestBlob = null;
 
-      // Phase 1: High-Clarity Search (Quality strictly kept between 0.74 and 0.98 — NO BLURRY ARTIFACTS)
       for (let step = 0; step < 18; step++) {
         const w = Math.max(120, Math.round(origW * scale));
         const h = Math.max(120, Math.round(origH * scale));
         const canvas = renderCrispCanvas(img, w, h);
 
-        // Test near-lossless 0.98 quality first
         const maxQBlob = await canvasToBlob(canvas, 0.98);
         if (maxQBlob && maxQBlob.size <= strictMaxBytes) {
           bestBlob = maxQBlob;
           break;
         }
 
-        // Check if our high-clarity quality floor (0.74) fits at this resolution
         const floorQ = 0.74;
         const floorBlob = await canvasToBlob(canvas, floorQ);
 
         if (floorBlob && floorBlob.size <= strictMaxBytes) {
-          // Binary search between 0.74 and 0.98 to pack maximum possible sharpness right up to the KB ceiling
           let lowQ = floorQ;
           let highQ = 0.98;
           let bestInStep = floorBlob;
@@ -798,11 +803,9 @@
           break;
         }
 
-        // Micro-step resolution by only 6% (keeps visual sharpness high instead of dropping JPEG quality)
         scale *= 0.92;
       }
 
-      // Phase 2: Fallback for ultra-small targets (e.g. 5 KB - 10 KB) while keeping edges readable
       while (!bestBlob || bestBlob.size > strictMaxBytes) {
         scale *= 0.88;
         const w = Math.max(60, Math.round(origW * scale));
@@ -815,7 +818,6 @@
       return bestBlob;
     }
 
-    // Open the 5-Second Non-Skippable Mini Pop-Up Ad Window & Run Compression
     async function startCompressionFlow() {
       if (!originalImage) return;
 
@@ -830,14 +832,15 @@
       const finalSizeReadout = document.getElementById('final-size-readout');
       const finalTargetReadout = document.getElementById('final-target-readout');
 
-      // Reset synchronization flags
       isTimerFinished = false;
       isCompressionFinished = false;
       compressedBlob = null;
 
-      // Show Modal & Lock Download Button + Hide Cross Buttons during 5-sec ad
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+
+      // Load Ad #3 inside the mini window + trigger Monetag Vignette
+      loadPopupAdSlot();
 
       closeBtn.classList.add('hidden');
       closeBtn.classList.remove('flex');
@@ -858,7 +861,6 @@
       countdownText.textContent = `Compressing your image... ${secondsLeft} sec`;
       countdownBadge.textContent = `${secondsLeft}s`;
 
-      // FIX #2: Clean 5-Second Countdown that never gets stuck on "1 sec"
       if (countdownTimer) clearInterval(countdownTimer);
       countdownTimer = setInterval(() => {
         secondsLeft--;
@@ -874,7 +876,6 @@
         }
       }, 1000);
 
-      // Run strict byte-ceiling compression asynchronously
       try {
         compressedBlob = await compressImageStrictlyUnderCeiling(originalImage, targetKB);
         isCompressionFinished = true;
@@ -885,7 +886,6 @@
       }
     }
 
-    // Synchronizes timer completion + compression completion so the button text ALWAYS updates cleanly
     function tryFinalizePopupState() {
       const countdownText = document.getElementById('compress-countdown-text');
       const countdownBadge = document.getElementById('countdown-badge');
@@ -895,37 +895,30 @@
       const topCrossBtn = document.getElementById('popup-top-cross-btn');
       const spinner = document.getElementById('modal-spinner');
 
-      if (!isTimerFinished) {
-        return; // Still inside the 5-second non-skippable ad window
-      }
+      if (!isTimerFinished) return;
 
       if (!isCompressionFinished || !compressedBlob) {
-        // If timer hit 0s and compression needs a few more milliseconds
         countdownText.textContent = 'Finalizing HD image...';
         countdownBadge.textContent = '99%';
         downloadLabel.textContent = 'Finalizing HD image...';
         return;
       }
 
-      // Both 5-sec timer AND compression are 100% complete -> Unlock Download + Reveal Cross (X) Buttons!
       spinner.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
       countdownText.textContent = 'Compression Complete • Ready';
       countdownBadge.textContent = 'Done';
       countdownBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
 
-      // Enable Download Button with final KB size
       downloadBtn.disabled = false;
       downloadBtn.className = 'w-full py-3.5 px-5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black shadow-lg shadow-emerald-500/25';
       downloadLabel.textContent = `Download Compressed Image (${formatExactKB(compressedBlob.size)})`;
 
-      // Show Top-Right Cross (X) Button & Bottom Close Button
       topCrossBtn.classList.remove('hidden');
       topCrossBtn.classList.add('flex');
       closeBtn.classList.remove('hidden');
       closeBtn.classList.add('flex');
     }
 
-    // Download directly from the mini pop-up without opening any new tab
     function triggerFinalDownload() {
       if (!compressedBlob || !isTimerFinished) return;
       const url = URL.createObjectURL(compressedBlob);
@@ -940,7 +933,6 @@
       setTimeout(() => URL.revokeObjectURL(url), 1500);
     }
 
-    // Close the mini window (and allow user to immediately compress a new file or adjust settings)
     function closeCompressModal() {
       if (countdownTimer) {
         clearInterval(countdownTimer);
@@ -951,5 +943,12 @@
       modal.classList.remove('flex');
     }
   </script>
+
+  <!-- ===================================================================== -->
+  <!-- YOUR EXACT MONETAG SCRIPTS (VIGNETTE 12076227 & IN-PAGE PUSH 12076237)-->
+  <!-- ===================================================================== -->
+  <script>(function(s){s.dataset.zone='12076227',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  <script>(function(s){s.dataset.zone='12076237',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>
