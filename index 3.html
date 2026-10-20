@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO title -->
+  <title>Online Photo &amp; Signature Resizer for Govt Exams (SSC, UPSC, IBPS, State)</title>
+  <meta name="description" content="Free online tool to resize and compress photos under 50KB and signatures under 20KB for SSC CGL, UPSC, IBPS, Police, and government exams." />
+  <meta name="theme-color" content="#07060D" />
+
+  <!-- FAVICON: save favicon.svg, favicon.ico, favicon-48.png, apple-touch-icon.png in the SAME folder as this file -->
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['DM Sans','sans-serif'], mono: ['JetBrains Mono','monospace'] } } } }
+  </script>
+
+  <style>
+    :root { --bg:#07060D; --panel:rgba(22,16,42,.72); --line:rgba(255,255,255,.09); --violet:#8B5CF6; --pink:#EC4899; --grad:linear-gradient(110deg,#7C3AED 0%,#C026D3 55%,#EC4899 100%); }
+    * { box-sizing:border-box; scroll-behavior:smooth; }
+    body { background:var(--bg); color:#F4F1FA; font-family:'DM Sans',sans-serif; overflow-x:hidden; padding-top:66px; padding-bottom:66px; }
+    body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; background-image:radial-gradient(ellipse 110% 55% at 15% 0%,rgba(139,92,246,.32),transparent 70%),radial-gradient(ellipse 90% 50% at 95% 12%,rgba(236,72,153,.22),transparent 70%),radial-gradient(ellipse 100% 45% at 50% 100%,rgba(124,58,237,.2),transparent 70%); animation:drift 18s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform:translate3d(-2%,0,0) scale(1.05); } to { transform:translate3d(2%,-2%,0) scale(1.12); } }
+    h1,h2,h3,.display { font-family:'Sora',sans-serif; letter-spacing:-.02em; }
+    :focus-visible { outline:2px solid #F0ABFC; outline-offset:2px; }
+    .grad-text { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:22px; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 30px 80px -30px rgba(124,58,237,.35), inset 0 1px 0 rgba(255,255,255,.06); }
+    .well { background:rgba(8,6,16,.7); border:1px solid rgba(255,255,255,.07); border-radius:14px; }
+    .checkerboard { background-image:linear-gradient(45deg,#1B1530 25%,transparent 25%),linear-gradient(-45deg,#1B1530 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1B1530 75%),linear-gradient(-45deg,transparent 75%,#1B1530 75%); background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0; background-color:#0E0A1A; }
+    /* main buttons: violet to pink */
+    .btn-main { background:var(--grad); background-size:140% 100%; color:#fff; font-weight:600; border-radius:14px; box-shadow:0 14px 34px -10px rgba(217,70,239,.65), inset 0 1px 0 rgba(255,255,255,.25); transition:transform .15s, box-shadow .2s; animation:sheen 6s ease-in-out infinite alternate; }
+    .btn-main:hover { background-position:100% 0; box-shadow:0 18px 40px -10px rgba(236,72,153,.75), inset 0 1px 0 rgba(255,255,255,.3); }
+    .btn-main:active { transform:scale(.99); }
+    .btn-ghost { background:rgba(255,255,255,.07); border:1px solid var(--line); color:#fff; transition:background .15s; }
+    .btn-ghost:hover { background:rgba(255,255,255,.13); }
+    .seg { color:#A9A1C0; transition:.15s; } .seg:hover { color:#fff; }
+    .seg.on { background:var(--grad); color:#fff; box-shadow:0 8px 22px -8px rgba(217,70,239,.7); }
+    .preset { background:rgba(255,255,255,.04); border:1px solid var(--line); color:#CFC8E4; transition:.15s; }
+    .preset:hover { background:rgba(255,255,255,.1); }
+    .preset.on { background:rgba(192,38,211,.18); border-color:#D946EF; color:#fff; }
+    .navbtn { color:#A9A1C0; transition:.15s; } .navbtn:hover { color:#fff; background:rgba(255,255,255,.06); } .navbtn.on { color:#fff; background:rgba(255,255,255,.1); }
+    .dl { background:rgba(255,255,255,.08); color:#8E86A8; border:1px solid var(--line); cursor:not-allowed; }
+    .dl.ready { background:linear-gradient(110deg,#10B981,#14B8A6); color:#04130F; border-color:transparent; cursor:pointer; box-shadow:0 12px 30px -10px rgba(16,185,129,.55); }
+    .badge-done { background:rgba(16,185,129,.18)!important; color:#6EE7B7!important; border-color:rgba(16,185,129,.35)!important; }
+    input[type="range"] { -webkit-appearance:none; appearance:none; background:linear-gradient(90deg,#7C3AED,#EC4899); height:6px; border-radius:999px; opacity:.85; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid #C026D3; cursor:pointer; box-shadow:0 0 14px rgba(236,72,153,.7); }
+    /* 3D hero stack (the one motion moment) - shown on phones and desktop */
+    .stage { perspective:900px; touch-action:pan-y; width:100%; max-width:460px; margin:0 auto; }
+    .sway, .stack { transform-style:preserve-3d; }
+    .sway { animation:sway 9s ease-in-out infinite alternate; }
+    .stack { position:relative; width:100%; height:210px; transform:rotateX(var(--rx,8deg)) rotateY(var(--ry,-16deg)); transition:transform .25s ease-out; }
+    .slab { position:absolute; border-radius:20px; border:1px solid rgba(255,255,255,.14); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); padding:14px; }
+    .slab .display { font-size:1.25rem; }
+    .slab.a { inset:6% 26% 24% 0; background:linear-gradient(145deg,rgba(139,92,246,.4),rgba(30,20,60,.85)); transform:translateZ(0); animation:bobA 6s ease-in-out infinite; }
+    .slab.b { inset:32% 0 0 30%; background:linear-gradient(145deg,rgba(236,72,153,.4),rgba(40,16,50,.88)); transform:translateZ(60px); animation:bobB 6s ease-in-out -3s infinite; box-shadow:0 36px 56px -20px rgba(236,72,153,.45); }
+    @media (min-width:1024px) { .stage { perspective:1100px; max-width:none; } .stack { height:300px; } .slab { padding:18px; } .slab .display { font-size:1.5rem; } }
+    @keyframes sway { from { transform:rotateY(-7deg); } to { transform:rotateY(7deg); } }
+    @keyframes bobA { 0%,100% { transform:translateZ(0) translateY(0); } 50% { transform:translateZ(0) translateY(-10px); } }
+    @keyframes bobB { 0%,100% { transform:translateZ(60px) translateY(0); } 50% { transform:translateZ(60px) translateY(-10px); } }
+    @keyframes sheen { from { background-position:0 0; } to { background-position:100% 0; } }
+    .pixel { height:6px; border-radius:99px; background:rgba(255,255,255,.18); margin-top:8px; }
+    @media (prefers-reduced-motion:reduce) { .sway, .slab, .btn-main, body::before { animation:none!important; } .stack { transition:none; } }
+    details>summary::-webkit-details-marker { display:none; }
+    details[open] .chev { transform:rotate(180deg); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-fuchsia-500 selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- AD #1: STICKY TOP BANNER AD (STRICTLY CONFINED TO TOP BAR)             -->
+  <!-- ===================================================================== -->
+  <div id="sticky-top-ad" class="fixed top-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-b border-white/10 flex items-center justify-center px-4">
+    <a href="https://uplcm.com/4/12076242" target="_blank" rel="noopener noreferrer" class="w-full max-w-[728px] h-[48px] rounded-xl bg-gradient-to-r from-[#121521] via-[#161A2B] to-[#121521] hover:border-indigo-500/40 border border-white/10 flex items-center justify-between px-3.5 sm:px-5 shadow-inner transition group">
+      <div class="flex items-center gap-2.5 overflow-hidden">
+        <span class="px-1.5 py-0.5 text-[9px] font-mono uppercase tracking-wider bg-indigo-500/20 text-indigo-300 rounded border border-indigo-500/30 shrink-0">Sponsored</span>
+        <span class="text-xs sm:text-sm font-medium text-zinc-200 group-hover:text-white truncate transition">High-Speed Cloud Utilities &amp; Document Tools — Click to View</span>
+      </div>
+      <span class="px-3 py-1.5 rounded-lg bg-indigo-600 group-hover:bg-indigo-500 text-white text-xs font-semibold transition shrink-0 shadow-sm">
+        Open Offer →
+      </span>
+    </a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="w-full border-b border-white/[0.07] bg-[#07060D]/75 backdrop-blur-xl sticky top-[60px] z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <button onclick="switchView('home')" class="flex items-center gap-2.5 text-left focus:outline-none">
+        <img src="favicon.svg" alt="" width="32" height="32" class="w-8 h-8 rounded-lg" onerror="this.style.display='none'" />
+        <span class="display font-semibold text-white text-sm sm:text-base">OptiScale <span class="grad-text">Studio</span></span>
+      </button>
+      <nav class="flex items-center gap-1 sm:gap-2">
+        <button onclick="switchView('home')" id="nav-home" class="navbtn on px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium">Compressor</button>
+        <button onclick="scrollToFaq()" class="navbtn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium">FAQ</button>
+        <button onclick="switchView('privacy')" id="nav-privacy" class="navbtn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium">Privacy</button>
+        <button onclick="switchView('terms')" id="nav-terms" class="navbtn hidden sm:block px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium">Terms</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+
+    <!-- ======================= HOME VIEW ======================= -->
+    <div id="view-home" class="max-w-6xl mx-auto px-4 sm:px-6">
+
+      <section class="py-8 sm:py-10">
+        <!-- Hero -->
+        <div class="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center mb-8">
+          <div class="text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-500/10 border border-fuchsia-400/25 text-fuchsia-200 text-xs font-medium mb-4">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              100% Client-Side • Zero Cropping • Crystal-Clear HD Output
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-[1.08]">Precision Image &amp; Signature Compressor</h1>
+            <p class="text-sm sm:text-base text-zinc-400 mt-4 max-w-xl mx-auto lg:mx-0">
+              Compress photographs and signatures to an exact kilobyte ceiling with zero cropping and minimal visible quality loss. Built for exam and job application forms.
+            </p>
+            <div class="flex flex-wrap justify-center lg:justify-start gap-2 mt-5 text-xs text-zinc-300">
+              <span class="well px-3 py-1.5">No login</span><span class="well px-3 py-1.5">No upload to servers</span><span class="well px-3 py-1.5">Free to use</span>
+            </div>
+          </div>
+          <div class="stage" id="stage" aria-hidden="true">
+            <div class="sway"><div class="stack" id="stack">
+              <div class="slab a"><span class="font-mono text-[11px] text-violet-200">Your original</span><div class="display text-2xl font-bold mt-1">Large file</div><div class="pixel w-3/4"></div><div class="pixel w-full"></div><div class="pixel w-1/2"></div></div>
+              <div class="slab b"><span class="font-mono text-[11px] text-pink-200">After compression</span><div class="display text-2xl font-bold mt-1">Under your limit</div><div class="pixel w-2/3"></div><div class="pixel w-1/3"></div></div>
+            </div></div>
+          </div>
+        </div>
+
+        <!-- Mode Switcher -->
+        <div class="flex justify-center mb-5">
+          <div class="inline-flex p-1 rounded-2xl well">
+            <button id="mode-photo" onclick="setMode('photo')" class="seg on px-4 py-2 rounded-xl text-xs sm:text-sm font-medium">Image Compressor</button>
+            <button id="mode-signature" onclick="setMode('signature')" class="seg px-4 py-2 rounded-xl text-xs sm:text-sm font-medium">Signature Compressor</button>
+          </div>
+        </div>
+
+        <!-- Studio -->
+        <div class="panel grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 sm:p-6">
+          <div class="lg:col-span-7 flex flex-col justify-between">
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="handleFileSelect(event)" />
+
+            <div id="dropzone" onclick="document.getElementById('file-input').click()" class="cursor-pointer group border-2 border-dashed border-white/15 hover:border-fuchsia-400/70 rounded-2xl bg-[#0A0714] p-8 sm:p-10 flex flex-col items-center justify-center text-center transition-all min-h-[290px]">
+              <div class="w-14 h-14 rounded-2xl btn-main flex items-center justify-center mb-4 group-hover:scale-105 transition">
+                <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-white mb-1" id="dropzone-title">Click or drag &amp; drop your image here</p>
+              <p class="text-xs text-zinc-400 mb-5">Supports JPG, PNG, WEBP • Full original framing &amp; sharpness preserved</p>
+              <span class="btn-ghost px-4 py-2 rounded-lg text-xs font-medium">Browse Device Files</span>
+            </div>
+
+            <div id="uploaded-preview-area" class="hidden flex-col">
+              <div class="relative rounded-2xl overflow-hidden border border-white/10 checkerboard flex items-center justify-center h-[240px] sm:h-[260px] p-3">
+                <img id="preview-img" src="" alt="Uploaded preview" class="max-h-full max-w-full object-contain rounded shadow-md" />
+                <button onclick="document.getElementById('file-input').click()" class="absolute top-3 right-3 px-2.5 py-1.5 rounded-lg bg-black/75 hover:bg-black text-xs text-zinc-200 border border-white/15 backdrop-blur-md transition">Change Image</button>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+                <div class="well p-2"><span class="block text-[10px] uppercase tracking-wider text-zinc-500">Original Size</span><span id="meta-original-size" class="font-mono text-xs sm:text-sm font-semibold text-white">—</span></div>
+                <div class="well p-2"><span class="block text-[10px] uppercase tracking-wider text-zinc-500">Dimensions</span><span id="meta-dimensions" class="font-mono text-xs sm:text-sm font-semibold text-white">—</span></div>
+                <div class="well p-2 !border-fuchsia-400/30"><span class="block text-[10px] uppercase tracking-wider text-fuchsia-300">Max Allowed</span><span id="meta-target-badge" class="font-mono text-xs sm:text-sm font-semibold text-fuchsia-300">≤ 50 KB</span></div>
+              </div>
+              <button id="compress-btn-below-image" onclick="startCompressionFlow()" class="btn-main mt-4 w-full py-3.5 px-5 text-sm sm:text-base flex items-center justify-center gap-2.5">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <span>Compress Image Now</span>
+                <span id="btn-target-pill" class="ml-1 px-2 py-0.5 text-xs font-mono rounded bg-black/30 text-pink-100">≤ 50 KB</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col justify-between well p-4 sm:p-5">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Strict Maximum File Size</label>
+                <span class="text-[11px] font-mono text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Never Exceeds Limit</span>
+              </div>
+              <div class="panel !rounded-xl p-3.5 mb-4">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs text-zinc-400">Target Ceiling (KB)</span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-mono text-zinc-400">≤</span>
+                    <input type="number" id="kb-number-input" min="5" max="500" value="50" oninput="syncTargetKB(this.value)" class="w-20 bg-[#07060D] border border-white/15 focus:border-fuchsia-400 rounded-lg px-2.5 py-1 text-right font-mono text-sm font-semibold text-white focus:outline-none" />
+                    <span class="text-xs font-mono text-zinc-400">KB</span>
+                  </div>
+                </div>
+                <input type="range" id="kb-slider" min="5" max="200" value="50" oninput="syncTargetKB(this.value)" class="w-full" />
+                <div class="flex justify-between text-[10px] font-mono text-zinc-500 mt-1.5"><span>5 KB</span><span>50 KB</span><span>100 KB</span><span>200 KB</span></div>
+              </div>
+              <div class="mb-4">
+                <span class="block text-xs text-zinc-400 mb-2">Quick Size Presets</span>
+                <div class="grid grid-cols-3 gap-2">
+                  <button onclick="syncTargetKB(15)" class="preset py-2 px-3 rounded-lg text-xs font-mono">≤ 15 KB</button>
+                  <button onclick="syncTargetKB(20)" class="preset py-2 px-3 rounded-lg text-xs font-mono">≤ 20 KB</button>
+                  <button onclick="syncTargetKB(30)" class="preset py-2 px-3 rounded-lg text-xs font-mono">≤ 30 KB</button>
+                  <button onclick="syncTargetKB(50)" class="preset on py-2 px-3 rounded-lg text-xs font-mono">≤ 50 KB</button>
+                  <button onclick="syncTargetKB(100)" class="preset py-2 px-3 rounded-lg text-xs font-mono">≤ 100 KB</button>
+                  <button onclick="syncTargetKB(200)" class="preset py-2 px-3 rounded-lg text-xs font-mono">≤ 200 KB</button>
+                </div>
+              </div>
+              <div class="space-y-2 border-t border-white/10 pt-3.5 text-xs text-zinc-400">
+                <div class="flex items-center justify-between"><span>Cropping Applied</span><span class="font-mono text-emerald-300">0% (Full Original Frame)</span></div>
+                <div class="flex items-center justify-between"><span>Byte Ceiling Guarantee</span><span id="byte-ceiling-label" class="font-mono text-zinc-200">≤ 51,200 Bytes (50.0 KB)</span></div>
+                <div class="flex items-center justify-between"><span>Visual Sharpness Lock</span><span class="font-mono text-fuchsia-300">HD Bicubic + High Q-Floor</span></div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 text-[11px] text-zinc-500 flex items-center gap-2">
+              <svg class="w-4 h-4 text-fuchsia-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+              <span>All processing happens locally inside your browser. Your files are never uploaded to any server.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS (a real sequence) -->
+      <section class="py-10 border-t border-white/10">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white text-center">Three steps to a form-ready file</h2>
+        <div class="grid md:grid-cols-3 gap-4 mt-8">
+          <div class="panel p-5"><span class="display text-3xl font-extrabold grad-text">1</span><h3 class="text-base font-semibold mt-2">Choose your file</h3><p class="text-sm text-zinc-400 mt-1.5">Pick Image or Signature mode, then add a JPG, PNG or WEBP from your phone or computer.</p></div>
+          <div class="panel p-5"><span class="display text-3xl font-extrabold grad-text">2</span><h3 class="text-base font-semibold mt-2">Set the size limit</h3><p class="text-sm text-zinc-400 mt-1.5">Type the maximum KB from your form's instructions, or tap a preset.</p></div>
+          <div class="panel p-5"><span class="display text-3xl font-extrabold grad-text">3</span><h3 class="text-base font-semibold mt-2">Compress and download</h3><p class="text-sm text-zinc-400 mt-1.5">Your JPG is built in the browser and always lands at or below the limit you set.</p></div>
+        </div>
+      </section>
+
+      <!-- WHY IT CAN BE TRUSTED -->
+      <section class="py-10 border-t border-white/10">
+        <div class="grid lg:grid-cols-5 gap-8 items-start">
+          <div class="lg:col-span-2">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white">Your photo stays on your device</h2>
+            <p class="text-sm text-zinc-400 mt-3">Application photos and signatures are personal. The compression runs entirely in your browser, so nothing is sent to us to process.</p>
+          </div>
+          <div class="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+            <div class="panel p-5"><h3 class="text-sm font-semibold">Private by design</h3><p class="text-sm text-zinc-400 mt-1.5">Files are processed with your browser's canvas. No upload step exists.</p></div>
+            <div class="panel p-5"><h3 class="text-sm font-semibold">Whole frame kept</h3><p class="text-sm text-zinc-400 mt-1.5">The picture is never cropped. For very small limits, pixel dimensions may be reduced to fit.</p></div>
+            <div class="panel p-5"><h3 class="text-sm font-semibold">Hard size ceiling</h3><p class="text-sm text-zinc-400 mt-1.5">The result is tested against your exact byte limit before you can download it.</p></div>
+            <div class="panel p-5"><h3 class="text-sm font-semibold">No account needed</h3><p class="text-sm text-zinc-400 mt-1.5">No sign-up, no email, no login. Ads keep the tool free.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXAMS -->
+      <section class="py-10 border-t border-white/10">
+        <div class="panel p-6 sm:p-8 text-center">
+          <h2 class="text-xl sm:text-2xl font-bold text-white">Made for exam and job form uploads</h2>
+          <p class="text-sm text-zinc-400 mt-3 max-w-2xl mx-auto">Commonly used for SSC, NEET, JEE, state and railway recruitment forms, and similar portals that ask for a photo or signature under a set size. Limits change between exams and years, so always confirm the exact size, format and dimensions in your official notification, then enter that number above.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq-section" class="py-12 border-t border-white/10">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-8"><h2 class="text-2xl sm:text-3xl font-bold text-white">Frequently Asked Questions</h2></div>
+          <div class="space-y-3">
+            <details class="panel !rounded-xl p-4 cursor-pointer"><summary class="flex items-center justify-between font-medium text-sm text-white list-none"><span>Will the compressed file ever exceed my chosen KB size?</span><span class="chev text-fuchsia-300 transition-transform">▼</span></summary><p class="text-sm text-zinc-400 mt-3 leading-relaxed">No. Our binary-search byte engine locks a hard upper ceiling at your exact target KB so the result is always strictly at or below your chosen limit.</p></details>
+            <details class="panel !rounded-xl p-4 cursor-pointer"><summary class="flex items-center justify-between font-medium text-sm text-white list-none"><span>Does this tool crop my image or reduce clarity?</span><span class="chev text-fuchsia-300 transition-transform">▼</span></summary><p class="text-sm text-zinc-400 mt-3 leading-relaxed">Zero cropping is ever performed. Your full image frame and aspect ratio remain 100% intact with high-clarity canvas rendering.</p></details>
+            <details class="panel !rounded-xl p-4 cursor-pointer"><summary class="flex items-center justify-between font-medium text-sm text-white list-none"><span>Are my photos stored on any server?</span><span class="chev text-fuchsia-300 transition-transform">▼</span></summary><p class="text-sm text-zinc-400 mt-3 leading-relaxed">Never. Every calculation uses your device's browser memory locally.</p></details>
+            <details class="panel !rounded-xl p-4 cursor-pointer"><summary class="flex items-center justify-between font-medium text-sm text-white list-none"><span>Which file format do I get?</span><span class="chev text-fuchsia-300 transition-transform">▼</span></summary><p class="text-sm text-zinc-400 mt-3 leading-relaxed">You can upload JPG, PNG or WEBP. The downloaded file is always a JPG, which is what most application portals accept.</p></details>
+            <details class="panel !rounded-xl p-4 cursor-pointer"><summary class="flex items-center justify-between font-medium text-sm text-white list-none"><span>My form needs exact pixel dimensions. Can this help?</span><span class="chev text-fuchsia-300 transition-transform">▼</span></summary><p class="text-sm text-zinc-400 mt-3 leading-relaxed">This tool controls file size in KB. It keeps your original proportions and does not set exact width and height, so resize first if your form requires specific dimensions.</p></details>
+            <details class="panel !rounded-xl p-4 cursor-pointer"><summary class="flex items-center justify-between font-medium text-sm text-white list-none"><span>Why is the result a little smaller than my limit?</span><span class="chev text-fuchsia-300 transition-transform">▼</span></summary><p class="text-sm text-zinc-400 mt-3 leading-relaxed">A small safety margin is kept under your limit so portals that count size slightly differently still accept the file.</p></details>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ======================= PRIVACY VIEW ======================= -->
+    <div id="view-privacy" class="hidden max-w-3xl mx-auto px-4 sm:px-6 py-10">
+      <div class="panel p-6 sm:p-8">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+          <h1 class="text-2xl font-bold text-white">Privacy Policy</h1>
+          <button onclick="switchView('home')" class="btn-ghost px-3.5 py-2 rounded-lg text-xs font-medium">← Back to Compressor</button>
+        </div>
+        <div class="space-y-5 text-sm text-zinc-300 leading-relaxed">
+          <p><strong>1. Zero Server Uploads:</strong> All image processing occurs locally inside your web browser using HTML5 Canvas APIs. Your photos and signatures are not sent to our servers.</p>
+          <p><strong>2. No Account Required:</strong> Use all features without logging in or submitting personal data.</p>
+          <p><strong>3. Advertising:</strong> We display banner and pop-up sponsor links to keep this tool free. These ads are provided by a third-party ad network, which may collect data such as your IP address or device information under its own privacy policy. We do not control that data collection.</p>
+          <p><strong>4. Cookies:</strong> This site does not set cookies for accounts. Third-party advertisers may set their own.</p>
+          <p><strong>5. Changes:</strong> We may update this policy as the site changes. The current version is always shown on this page.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= TERMS VIEW ======================= -->
+    <div id="view-terms" class="hidden max-w-3xl mx-auto px-4 sm:px-6 py-10">
+      <div class="panel p-6 sm:p-8">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+          <h1 class="text-2xl font-bold text-white">Terms of Use</h1>
+          <button onclick="switchView('home')" class="btn-ghost px-3.5 py-2 rounded-lg text-xs font-medium">← Back to Compressor</button>
+        </div>
+        <div class="space-y-5 text-sm text-zinc-300 leading-relaxed">
+          <p><strong>1. Free service:</strong> This tool is provided free, as is, without warranty.</p>
+          <p><strong>2. Your files:</strong> You are responsible for the images you use and for checking that the result meets your form's requirements before you submit.</p>
+          <p><strong>3. Sponsored links:</strong> Sponsored banners and pop-ups lead to third-party sites. We are not responsible for their content or offers.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-white/[0.07] bg-[#07060D] py-5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
+      <div class="flex items-center gap-2"><span class="font-semibold text-zinc-300">OptiScale Studio</span><span>•</span><span>Precision Client-Side Image &amp; Signature Compressor</span></div>
+      <div class="flex items-center gap-4">
+        <button onclick="switchView('home')" class="hover:text-white transition">Home</button>
+        <button onclick="scrollToFaq()" class="hover:text-white transition">FAQ</button>
+        <button onclick="switchView('privacy')" class="hover:text-white transition">Privacy Policy</button>
+        <button onclick="switchView('terms')" class="hover:text-white transition">Terms</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- AD #2: STICKY BOTTOM BANNER AD (STRICTLY CONFINED TO BOTTOM BAR)      -->
+  <!-- ===================================================================== -->
+  <div id="sticky-bottom-ad" class="fixed bottom-0 left-0 right-0 z-40 h-[60px] bg-[#0B0D14]/95 backdrop-blur-md border-t border-white/10 flex items-center justify-center px-4">
+    <a href="https://uplcm.com/4/12076242" target="_blank" rel="noopener noreferrer" class="w-full max-w-[728px] h-[48px] rounded-xl bg-gradient-to-r from-[#121521] via-[#151D28] to-[#121521] hover:border-emerald-500/40 border border-white/10 flex items-center justify-between px-3.5 sm:px-5 shadow-inner transition group">
+      <div class="flex items-center gap-2.5 overflow-hidden">
+        <span class="px-1.5 py-0.5 text-[9px] font-mono uppercase tracking-wider bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30 shrink-0">Featured</span>
+        <span class="text-xs sm:text-sm font-medium text-zinc-200 group-hover:text-white truncate transition">Instant PDF &amp; Image Optimization Partner — Explore Now</span>
+      </div>
+      <span class="px-3 py-1.5 rounded-lg bg-emerald-500 group-hover:bg-emerald-400 text-black text-xs font-semibold transition shrink-0 shadow-sm">
+        Visit Site →
+      </span>
+    </a>
+  </div>
+
+  <!-- MODAL 1: UPLOAD PROGRESS -->
+  <div id="upload-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="panel w-full max-w-sm p-6 text-center">
+      <div class="w-16 h-16 rounded-xl overflow-hidden mx-auto mb-4 border border-white/10 checkerboard flex items-center justify-center"><img id="upload-modal-thumb" src="" alt="Uploading" class="max-h-full max-w-full object-contain" /></div>
+      <h3 class="text-base font-semibold text-white">Uploading Your Image...</h3>
+      <p class="text-xs text-zinc-400 mt-1 mb-4">Preparing lossless pixel buffer in browser memory</p>
+      <div class="w-full h-2.5 bg-black/60 rounded-full overflow-hidden border border-white/10 mb-2"><div id="upload-progress-bar" class="h-full transition-all duration-150" style="width:5%;background:var(--grad)"></div></div>
+      <div class="flex items-center justify-between text-xs font-mono"><span class="text-zinc-400">Status: Reading file</span><span id="upload-progress-text" class="text-fuchsia-300 font-semibold">5%</span></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: 5-SEC MINI POP-UP AD WINDOW (AD #3 CONFINED INSIDE BOX)      -->
+  <!-- ===================================================================== -->
+  <div id="compress-ad-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div class="panel w-full max-w-md p-5 sm:p-6 relative">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+        <div class="flex items-center gap-2">
+          <span id="modal-spinner" class="w-2.5 h-2.5 rounded-full bg-fuchsia-400 animate-ping"></span>
+          <span id="compress-countdown-text" class="text-xs sm:text-sm font-semibold text-white">Compressing your image... 5 sec</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="countdown-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono bg-fuchsia-500/20 text-fuchsia-200 border border-fuchsia-400/30">5s</span>
+          <button id="popup-top-cross-btn" onclick="closeCompressModal()" title="Close mini window" class="hidden w-7 h-7 rounded-full bg-white/10 hover:bg-rose-500/20 hover:text-rose-300 border border-white/15 text-zinc-300 items-center justify-center transition">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- AD #3: 5-SECOND POP-UP AD CONTAINER (CONFINED INSIDE THIS 220px BOX) -->
+      <div id="popup-ad-slot" class="w-full h-[220px] bg-[#0B0D14] border border-white/15 rounded-xl overflow-hidden flex flex-col items-center justify-center mb-4 relative">
+        <!-- Populated dynamically when Compress is clicked -->
+      </div>
+
+      <div class="well p-3 mb-4 flex items-center justify-between text-xs">
+        <div><span class="text-zinc-400 block">Final Compressed Size</span><span id="final-size-readout" class="font-mono text-sm font-bold text-emerald-300">Calculating...</span></div>
+        <div class="text-right"><span class="text-zinc-400 block">Target Limit</span><span id="final-target-readout" class="font-mono text-sm font-semibold text-white">≤ 50.0 KB</span></div>
+      </div>
+
+      <button id="popup-download-btn" disabled onclick="triggerFinalDownload()" class="dl w-full py-3.5 px-5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+        <span id="popup-download-label">Please wait 5 sec to Download...</span>
+      </button>
+
+      <button id="popup-close-btn" onclick="closeCompressModal()" class="btn-ghost hidden mt-3 w-full py-2 rounded-lg text-xs font-medium items-center justify-center gap-1.5"><span>✕ Close Window &amp; Compress Another File</span></button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- APPLICATION LOGIC & AD SLOT CONTROLLER                                -->
+  <!-- ===================================================================== -->
+  <script>
+    const MONETAG_DIRECT_LINK = "https://uplcm.com/4/12076242";
+
+    // Loads Ad #3 strictly inside the 220px box when Compress is clicked
+    function loadPopupAdSlot() {
+      const slot = document.getElementById('popup-ad-slot');
+      if (!slot) return;
+
+      slot.innerHTML = `
+        <iframe 
+          src="${MONETAG_DIRECT_LINK}" 
+          class="w-full h-full border-0 bg-[#0B0D14]" 
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="${MONETAG_DIRECT_LINK}" target="_blank" rel="noopener noreferrer" 
+           class="absolute bottom-2.5 right-2.5 px-3 py-1 rounded-lg bg-indigo-600/95 hover:bg-indigo-500 text-[11px] font-semibold text-white border border-white/20 shadow-lg backdrop-blur-md transition flex items-center gap-1">
+          <span>Sponsored Offer</span>
+          <span>↗</span>
+        </a>
+      `;
+    }
+
+    let currentMode = 'photo';
+    let targetKB = 50;
+    let uploadedFile = null;
+    let originalImage = null;
+    let compressedBlob = null;
+    let countdownTimer = null;
+    let isTimerFinished = false;
+    let isCompressionFinished = false;
+
+    function switchView(view) {
+      ['home', 'privacy', 'terms'].forEach(v => {
+        document.getElementById('view-' + v).classList.toggle('hidden', v !== view);
+        const nav = document.getElementById('nav-' + v);
+        if (nav) nav.classList.toggle('on', v === view);
+      });
+      if (view !== 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToFaq() {
+      switchView('home');
+      setTimeout(() => {
+        document.getElementById('faq-section').scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('mode-photo').classList.toggle('on', mode === 'photo');
+      document.getElementById('mode-signature').classList.toggle('on', mode === 'signature');
+      document.getElementById('dropzone-title').textContent = mode === 'photo'
+        ? 'Click or drag & drop your image here'
+        : 'Click or drag & drop your signature here';
+      syncTargetKB(mode === 'photo' ? 50 : 20);
+    }
+
+    function syncTargetKB(val) {
+      let parsed = parseFloat(val);
+      if (isNaN(parsed) || parsed < 5) parsed = 5;
+      if (parsed > 500) parsed = 500;
+      targetKB = parsed;
+
+      document.getElementById('kb-number-input').value = targetKB;
+      document.getElementById('kb-slider').value = Math.min(200, targetKB);
+      document.getElementById('meta-target-badge').textContent = `≤ ${targetKB} KB`;
+      document.getElementById('btn-target-pill').textContent = `≤ ${targetKB} KB`;
+
+      const maxBytes = Math.floor(targetKB * 1024);
+      document.getElementById('byte-ceiling-label').textContent = `≤ ${maxBytes.toLocaleString()} Bytes (${targetKB.toFixed(1)} KB)`;
+
+      document.querySelectorAll('.preset').forEach(btn => {
+        btn.classList.toggle('on', btn.textContent.trim() === `≤ ${targetKB} KB`);
+      });
+    }
+
+    const dropzone = document.getElementById('dropzone');
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-fuchsia-400'); });
+    dropzone.addEventListener('dragleave', () => { dropzone.classList.remove('border-fuchsia-400'); });
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('border-fuchsia-400');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        processUploadedFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        processUploadedFile(file);
+      }
+      event.target.value = '';
+    }
+
+    function processUploadedFile(file) {
+      uploadedFile = file;
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const dataURL = e.target.result;
+        const img = new Image();
+        img.onload = function() {
+          originalImage = img;
+          runUploadPopupAnimation(dataURL, file.size, img.width, img.height);
+        };
+        img.src = dataURL;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function runUploadPopupAnimation(dataURL, fileSize, width, height) {
+      const modal = document.getElementById('upload-modal');
+      const bar = document.getElementById('upload-progress-bar');
+      const text = document.getElementById('upload-progress-text');
+      const thumb = document.getElementById('upload-modal-thumb');
+
+      thumb.src = dataURL;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      const steps = [5, 24, 50, 78, 100];
+      let i = 0;
+
+      bar.style.width = '5%';
+      text.textContent = '5%';
+
+      const interval = setInterval(() => {
+        i++;
+        if (i < steps.length) {
+          bar.style.width = steps[i] + '%';
+          text.textContent = steps[i] + '%';
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            displayUploadedImageAndCompressButton(dataURL, fileSize, width, height);
+          }, 180);
+        }
+      }, 140);
+    }
+
+    function displayUploadedImageAndCompressButton(dataURL, fileSize, width, height) {
+      document.getElementById('dropzone').classList.add('hidden');
+      const previewArea = document.getElementById('uploaded-preview-area');
+      previewArea.classList.remove('hidden');
+      previewArea.classList.add('flex');
+
+      document.getElementById('preview-img').src = dataURL;
+      document.getElementById('meta-original-size').textContent = formatExactKB(fileSize);
+      document.getElementById('meta-dimensions').textContent = `${width} × ${height}`;
+    }
+
+    function formatExactKB(bytes) {
+      if (!bytes || bytes <= 0) return '0.00 KB';
+      const kb = Math.floor((bytes / 1024) * 100) / 100;
+      return `${kb.toFixed(2)} KB`;
+    }
+
+    function canvasToBlob(canvas, quality) {
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => resolve(blob), 'image/jpeg', quality);
+      });
+    }
+
+    function renderCrispCanvas(sourceImg, targetW, targetH) {
+      const canvas = document.createElement('canvas');
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, targetW, targetH);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      ctx.drawImage(sourceImg, 0, 0, targetW, targetH);
+      return canvas;
+    }
+
+    // HD Zero-Crop Strict Byte Ceiling Engine
+    async function compressImageStrictlyUnderCeiling(img, maxKB) {
+      const strictMaxBytes = Math.max(1024, Math.floor(maxKB * 1024) - 96);
+      const sweetSpotMinBytes = Math.floor(strictMaxBytes * 0.90);
+
+      let origW = img.width;
+      let origH = img.height;
+
+      let scale = 1.0;
+      const maxEdge = Math.max(origW, origH);
+      if (maxEdge > 2000 && maxKB <= 100) {
+        scale = 2000 / maxEdge;
+      }
+
+      let bestBlob = null;
+
+      for (let step = 0; step < 18; step++) {
+        const w = Math.max(120, Math.round(origW * scale));
+        const h = Math.max(120, Math.round(origH * scale));
+        const canvas = renderCrispCanvas(img, w, h);
+
+        const maxQBlob = await canvasToBlob(canvas, 0.98);
+        if (maxQBlob && maxQBlob.size <= strictMaxBytes) {
+          bestBlob = maxQBlob;
+          break;
+        }
+
+        const floorQ = 0.74;
+        const floorBlob = await canvasToBlob(canvas, floorQ);
+
+        if (floorBlob && floorBlob.size <= strictMaxBytes) {
+          let lowQ = floorQ;
+          let highQ = 0.98;
+          let bestInStep = floorBlob;
+
+          for (let iter = 0; iter < 7; iter++) {
+            const midQ = (lowQ + highQ) / 2;
+            const candidate = await canvasToBlob(canvas, midQ);
+            if (candidate && candidate.size <= strictMaxBytes) {
+              bestInStep = candidate;
+              lowQ = midQ;
+              if (candidate.size >= sweetSpotMinBytes) break;
+            } else {
+              highQ = midQ;
+            }
+          }
+          bestBlob = bestInStep;
+          break;
+        }
+
+        scale *= 0.92;
+      }
+
+      while (!bestBlob || bestBlob.size > strictMaxBytes) {
+        scale *= 0.88;
+        const w = Math.max(60, Math.round(origW * scale));
+        const h = Math.max(60, Math.round(origH * scale));
+        const canvas = renderCrispCanvas(img, w, h);
+        bestBlob = await canvasToBlob(canvas, 0.70);
+        if (w <= 60 && h <= 60) break;
+      }
+
+      return bestBlob;
+    }
+
+    async function startCompressionFlow() {
+      if (!originalImage) return;
+
+      const modal = document.getElementById('compress-ad-modal');
+      const countdownText = document.getElementById('compress-countdown-text');
+      const countdownBadge = document.getElementById('countdown-badge');
+      const downloadBtn = document.getElementById('popup-download-btn');
+      const downloadLabel = document.getElementById('popup-download-label');
+      const closeBtn = document.getElementById('popup-close-btn');
+      const topCrossBtn = document.getElementById('popup-top-cross-btn');
+      const spinner = document.getElementById('modal-spinner');
+      const finalSizeReadout = document.getElementById('final-size-readout');
+      const finalTargetReadout = document.getElementById('final-target-readout');
+
+      isTimerFinished = false;
+      isCompressionFinished = false;
+      compressedBlob = null;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      // Load Ad #3 strictly inside the mini window box
+      loadPopupAdSlot();
+
+      closeBtn.classList.add('hidden');
+      closeBtn.classList.remove('flex');
+      topCrossBtn.classList.add('hidden');
+      topCrossBtn.classList.remove('flex');
+
+      spinner.className = 'w-2.5 h-2.5 rounded-full bg-fuchsia-400 animate-ping';
+      countdownBadge.classList.remove('badge-done');
+
+      downloadBtn.disabled = true;
+      downloadBtn.classList.remove('ready');
+      downloadLabel.textContent = 'Please wait 5 sec to Download...';
+
+      finalTargetReadout.textContent = `≤ ${targetKB.toFixed(1)} KB`;
+      finalSizeReadout.textContent = 'Optimizing HD clarity...';
+
+      let secondsLeft = 5;
+      countdownText.textContent = `Compressing your image... ${secondsLeft} sec`;
+      countdownBadge.textContent = `${secondsLeft}s`;
+
+      if (countdownTimer) clearInterval(countdownTimer);
+      countdownTimer = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft > 0) {
+          countdownText.textContent = `Compressing your image... ${secondsLeft} sec`;
+          countdownBadge.textContent = `${secondsLeft}s`;
+          downloadLabel.textContent = `Please wait ${secondsLeft} sec to Download...`;
+        } else {
+          clearInterval(countdownTimer);
+          countdownTimer = null;
+          isTimerFinished = true;
+          tryFinalizePopupState();
+        }
+      }, 1000);
+
+      try {
+        compressedBlob = await compressImageStrictlyUnderCeiling(originalImage, targetKB);
+        isCompressionFinished = true;
+        finalSizeReadout.textContent = `${formatExactKB(compressedBlob.size)} (${compressedBlob.size.toLocaleString()} B)`;
+        tryFinalizePopupState();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function tryFinalizePopupState() {
+      const countdownText = document.getElementById('compress-countdown-text');
+      const countdownBadge = document.getElementById('countdown-badge');
+      const downloadBtn = document.getElementById('popup-download-btn');
+      const downloadLabel = document.getElementById('popup-download-label');
+      const closeBtn = document.getElementById('popup-close-btn');
+      const topCrossBtn = document.getElementById('popup-top-cross-btn');
+      const spinner = document.getElementById('modal-spinner');
+
+      if (!isTimerFinished) return;
+
+      if (!isCompressionFinished || !compressedBlob) {
+        countdownText.textContent = 'Finalizing HD image...';
+        countdownBadge.textContent = '99%';
+        downloadLabel.textContent = 'Finalizing HD image...';
+        return;
+      }
+
+      spinner.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+      countdownText.textContent = 'Compression Complete • Ready';
+      countdownBadge.textContent = 'Done';
+      countdownBadge.classList.add('badge-done');
+
+      downloadBtn.disabled = false;
+      downloadBtn.classList.add('ready');
+      downloadLabel.textContent = `Download Compressed Image (${formatExactKB(compressedBlob.size)})`;
+
+      topCrossBtn.classList.remove('hidden');
+      topCrossBtn.classList.add('flex');
+      closeBtn.classList.remove('hidden');
+      closeBtn.classList.add('flex');
+    }
+
+    function triggerFinalDownload() {
+      if (!compressedBlob || !isTimerFinished) return;
+      const url = URL.createObjectURL(compressedBlob);
+      const a = document.createElement('a');
+      const baseName = uploadedFile ? uploadedFile.name.replace(/\.[^/.]+$/, '') : 'image';
+      const exactKBTag = Math.floor(compressedBlob.size / 1024);
+      a.href = url;
+      a.download = `${baseName}-compressed-${exactKBTag}kb.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    function closeCompressModal() {
+      if (countdownTimer) {
+        clearInterval(countdownTimer);
+        countdownTimer = null;
+      }
+      const modal = document.getElementById('compress-ad-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // 3D hero tilt follows the pointer (skipped if the visitor prefers reduced motion)
+    (function () {
+      const stage = document.getElementById('stage'), stack = document.getElementById('stack');
+      if (!stage || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stage.addEventListener('pointermove', (e) => {
+        const r = stage.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        stack.style.setProperty('--ry', (-16 + x * 18) + 'deg');
+        stack.style.setProperty('--rx', (8 - y * 14) + 'deg');
+      });
+      ['pointerleave', 'pointerup', 'pointercancel'].forEach(ev => stage.addEventListener(ev, () => { stack.style.setProperty('--ry', '-16deg'); stack.style.setProperty('--rx', '8deg'); }));
+    })();
+  </script>
+
+</body>
+</html>
